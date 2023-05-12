@@ -1,34 +1,42 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
-        <ui:composition template="./bjmbcTemplate.xhtml">
-
-            <ui:define name="top">
-                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                    <div class="container-fluid">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">Active</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#">Disabled</a>
-                            </li>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                    <li>
+                    <h:outputLink target="#{request.contextPath}">
+                    <h:graphicImage name="images/Logo40White.png"/>
+                    </h:outputLink>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Register</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/revenuePartyRegister">Revenue Party</a></li>
+                            <li><a class="dropdown-item" href="/expensePartyRegister">Expense Party</a></li>
                         </ul>
-                    </div>
-                </nav>
-            </ui:define>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Active</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-        </ui:composition>
 
     </body>
 </html>
