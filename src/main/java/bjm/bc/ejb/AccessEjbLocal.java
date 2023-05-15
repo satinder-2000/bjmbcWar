@@ -5,7 +5,7 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.Access;
-import jakarta.ejb.Local;
+import javax.ejb.Local;
 
 /**
  *
@@ -25,6 +25,8 @@ public interface AccessEjbLocal {
     public Access unLockAccess(Access access);
     
     public Access findByEmail(String email);
+    
+    public Access findByEmailAndAccessType(String email, String accessType);
     
     public Access increaseFailedLoginnAttempt(Access access);
     

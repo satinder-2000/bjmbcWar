@@ -5,8 +5,6 @@
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/Access.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/CentralAccount.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/AccessEjb.java
-/Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/DistrictEjb.java
-/Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/DistrictEjbLocal.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/State.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/RevenueAccountEjbLocal.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/RevenuePartyEjb.java
@@ -19,12 +17,10 @@
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/ExpenseAccountEjb.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/District.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/RevenueCategoryEjb.java
-/Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/StateEjb.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/ExpenseParty.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/RevenueParty.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/NewClass.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/ExpenseAccount.java
-/Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/StateEjbLocal.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/AccessType.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/util/HashGenerator.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/RevenueAccount.java

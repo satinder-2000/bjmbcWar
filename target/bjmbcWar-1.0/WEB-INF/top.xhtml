@@ -17,7 +17,11 @@
                     <li class="nav-item">
                         <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Register</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/RevenuePartyRegister">Revenue Party</a></li>
+                            <li>
+                                <h:form>
+                                <h:commandLink  value="Revenue Party"  action="RevenuePartyRegister" styleClass="nav-link"/>
+                                </h:form>
+                            </li>
                             <li><a class="dropdown-item" href="/expensePartyRegister">Expense Party</a></li>
                         </ul>
                     </li>

@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/bjmbcTemplate.xhtml">
+
+    <ui:define name="content">
+        <div class="container col-sm-8">
+            <h1>Revenue Party Registration</h1>
+            <h:form styleClass="form-horizontal" enctype="multipart/form-data" prependId="false">
+                <br/>
+                <h:messages id="messages" infoStyle="color:blue;margin:5px;" errorStyle="color:red;margin:5px;"/>
+                <div class=" row form-group">
+                    <div class="col-sm-6">
+                        <label for="name">Name:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:inputText id="name" value="#{revenuePartyRegisterMBean.revenueParty.name}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class=" row form-group">
+                    <div class="col-sm-6">
+                        <label for="email">Email:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:inputText id="email" value="#{revenuePartyRegisterMBean.revenueParty.email}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label for="oAdCNo">Owner Adhaar Card Number:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:inputText id="oAdCNo" value="#{revenuePartyRegisterMBean.revenueParty.ownerAdhaarNumber}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col">
+                        <label for="orgn">Organisation::</label>
+                    </div>
+                    <div class="col">
+                        <h:inputText id="orgn" value="#{revenuePartyRegisterMBean.revenueParty.organisation}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col">
+                        <label for="revCat">Select Accounts:</label>
+                    </div>
+                    <div class="col">
+                        <h:selectManyListbox id="revCats" value="#{revenuePartyRegisterMBean.partyRevenueCategories}" size="5" class="form-control" >
+                            <f:selectItems value="#{revenuePartyRegisterMBean.revenueCategoriesStr}" var="rC" itemValue="#{rC}" itemLabel="#{rc}"/> 
+                        </h:selectManyListbox>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col">
+                        <label for="memDate">Memorable Date:</label>
+                    </div>
+                    <div class="col">
+                        <h:inputText id="memDate" value="#{revenuePartyRegisterMBean.memorableDateStr}" pt:placeholer="dd/MM/yyyy" styleClass="form-control">
+                        </h:inputText>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:outputLabel />
+                    </div>
+                    <div class="col-sm-6">
+                        <h:commandButton id="continueBtn" value="Continue" action="#{revenuePartyRegisterMBean.validateRevenueParty()}" styleClass="btn btn-primary" />
+                    </div>                        
+                </div>
+                
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

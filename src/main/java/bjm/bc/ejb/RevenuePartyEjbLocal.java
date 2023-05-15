@@ -7,8 +7,8 @@ package bjm.bc.ejb;
 import bjm.bc.ejb.exception.UserRegisteredAlreadyException;
 import bjm.bc.model.RevenueAccount;
 import bjm.bc.model.RevenueParty;
-import jakarta.ejb.Local;
-import jakarta.mail.MessagingException;
+import javax.ejb.Local;
+import javax.mail.MessagingException;
 import java.util.List;
 
 /**

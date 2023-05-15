@@ -5,7 +5,7 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.ExpenseCategory;
-import jakarta.ejb.Local;
+import javax.ejb.Local;
 import java.util.List;
 
 /**

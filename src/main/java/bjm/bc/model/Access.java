@@ -4,13 +4,14 @@
  */
 package bjm.bc.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
+import javax.persistence.Transient;
 
 /**
  *
@@ -30,6 +31,9 @@ public class Access {
     
     @Column(name = "PASSWORD")
     private String password;
+    
+    @Transient
+    private String passwordConfirm;
     
     @Column(name = "FAILED_ATTEMPTS")
     private int failedAttempts;
@@ -66,6 +70,16 @@ public class Access {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+    
+    
 
     public int getFailedAttempts() {
         return failedAttempts;

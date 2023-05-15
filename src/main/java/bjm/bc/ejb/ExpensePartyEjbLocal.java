@@ -7,8 +7,8 @@ package bjm.bc.ejb;
 import bjm.bc.ejb.exception.UserRegisteredAlreadyException;
 import bjm.bc.model.ExpenseAccount;
 import bjm.bc.model.ExpenseParty;
-import jakarta.ejb.Local;
-import jakarta.mail.MessagingException;
+import javax.ejb.Local;
+import javax.mail.MessagingException;
 import java.util.List;
 
 /**
@@ -23,5 +23,7 @@ public interface ExpensePartyEjbLocal {
     public ExpenseParty updateExpenseParty(ExpenseParty expenseParty);
     public List<ExpenseAccount> findExpenseAccountsOfParty(String email);
     public ExpenseParty addMoreExpenseAccounts(ExpenseParty expenseParty, List<ExpenseAccount> moreExpenseAccounts); 
+
+    public ExpenseParty findByEmail(String email);
     
 }

@@ -6,23 +6,28 @@ package bjm.bc.mbean;
 
 import bjm.bc.ejb.RevenueCategoryEjbLocal;
 import bjm.bc.ejb.RevenuePartyEjbLocal;
-import bjm.bc.ejb.StateEjbLocal;
+import bjm.bc.ejb.exception.UserRegisteredAlreadyException;
 import bjm.bc.model.RevenueCategory;
 import bjm.bc.model.RevenueParty;
 import bjm.bc.model.State;
 import bjm.bc.util.BJMConstants;
 import bjm.bc.util.FinancialYear;
-import jakarta.annotation.PostConstruct;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.flow.FlowScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import bjm.bc.util.HashGenerator;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.flow.FlowScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.mail.MessagingException;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,11 +45,11 @@ public class RevenuePartyRegisterMBean implements Serializable {
     
     private ExternalContext externalContext;
     private RevenueParty revenueParty;
-    private List<State> states;
     private List<RevenueCategory> revenueCategories;
+    private List<String> revenueCategoriesStr;
+    private String[] partyRevenueCategories;
+    private String memorableDateStr;
     
-    @Inject
-    private StateEjbLocal stateEjbLocal;
     @Inject
     private RevenueCategoryEjbLocal revenueCategoryEjbLocal;
     @Inject
@@ -54,31 +59,23 @@ public class RevenuePartyRegisterMBean implements Serializable {
     public void init(){
         externalContext=FacesContext.getCurrentInstance().getExternalContext();
         revenueParty=new RevenueParty();
-        states=new ArrayList<>();
-        State dummy=new State();
-        dummy.setCode(DEFAULT_CODE);
-        FacesContext context = FacesContext.getCurrentInstance();
-        ResourceBundle rb = context.getApplication().evaluateExpressionGet(context, "#{msg}", ResourceBundle.class);
-        dummy.setName(rb.getString("pleaseSelectOne"));
-        states.add(dummy);
-        states.addAll(stateEjbLocal.getAllStates());
         revenueCategories=new ArrayList<>();
+        revenueCategoriesStr= new ArrayList<>();
         RevenueCategory dummyRevCat= new RevenueCategory();
         dummyRevCat.setRevenueCategory(DEFAULT_CODE);
         revenueCategories.add(dummyRevCat);
         revenueCategories.addAll(revenueCategoryEjbLocal.getRevenueCategoriesForYear(FinancialYear.financialYear()));
+        for (RevenueCategory rc: revenueCategories){
+           revenueCategoriesStr.add(rc.getRevenueCategory());
+        }
         LOGGER.info("New Revenue Party initialised");
     }
     
-    public String processData(){
-        String toReturn = validateRevenueParty();
-        if (toReturn != null) {
-            toReturn = "RevenuePartyConfirm?faces-redirect=true";
-        }
-        return toReturn;
+    public String amendDetails(){
+        return "RevenuePartyRegister?faces-redirect=true";
     }
     
-    private String validateRevenueParty() {
+    public String validateRevenueParty() {
         String toReturn = null;
         FacesContext context = FacesContext.getCurrentInstance();
         ResourceBundle rb = context.getApplication().evaluateExpressionGet(context, "#{msg}", ResourceBundle.class);
@@ -109,25 +106,38 @@ public class RevenuePartyRegisterMBean implements Serializable {
 
         }
         
+        //Memorable Date now
+        if (!memorableDateStr.isEmpty()){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            revenueParty.setMemorableDate(LocalDate.parse(memorableDateStr, formatter));
+        }
+        
+        //finally create PartyHash
+        String partyHash=HashGenerator.generateHash(revenueParty.getName().concat(revenueParty.getEmail()).concat(revenueParty.getOwnerAdhaarNumber()));
+	revenueParty.setPartyHash(partyHash);
+        
         if (!FacesContext.getCurrentInstance().getMessageList().isEmpty()){
-            toReturn = null; //generate same page with errors
+            toReturn =null; //generate same page with errors
         }else{
-            toReturn = "RevenuePartyConfirm?faces-redirect=true";
+            toReturn = "RevenuePartyRegisterConfirm?faces-redirect=true";
         }
         return toReturn;
     }
     
-    public String revenuePartySubmit(){
-        return null;
+    public void submitRevenueParty(){
+        try {
+            revenueParty = revenuePartyEjbLocal.createRevenueParty(revenueParty);
+        } catch (UserRegisteredAlreadyException ex) {
+            Logger.getLogger(RevenuePartyRegisterMBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(RevenuePartyRegisterMBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LOGGER.log(Level.INFO, "Revenue Party persisted with ID: {0} ",revenueParty.getId());
+    }
     
-    }
-
-    public List<State> getStates() {
-        return states;
-    }
-
-    public void setStates(List<State> states) {
-        this.states = states;
+    public String getReturnValue() {
+        submitRevenueParty();
+        return "/flowreturns/RevenuePartyRegister-return?faces-redirect=true";
     }
 
     public List<RevenueCategory> getRevenueCategories() {
@@ -137,6 +147,42 @@ public class RevenuePartyRegisterMBean implements Serializable {
     public void setRevenueCategories(List<RevenueCategory> revenueCategories) {
         this.revenueCategories = revenueCategories;
     }
+
+    public RevenueParty getRevenueParty() {
+        return revenueParty;
+    }
+
+    public void setRevenueParty(RevenueParty revenueParty) {
+        this.revenueParty = revenueParty;
+    }
+
+    public String[] getPartyRevenueCategories() {
+        return partyRevenueCategories;
+    }
+
+    public void setPartyRevenueCategories(String[] partyRevenueCategories) {
+        this.partyRevenueCategories = partyRevenueCategories;
+    }
+
+    public String getMemorableDateStr() {
+        return memorableDateStr;
+    }
+
+    public void setMemorableDateStr(String memorableDateStr) {
+        this.memorableDateStr = memorableDateStr;
+    }
+
+    
+
+    public List<String> getRevenueCategoriesStr() {
+        return revenueCategoriesStr;
+    }
+
+    public void setRevenueCategoriesStr(List<String> revenueCategoriesStr) {
+        this.revenueCategoriesStr = revenueCategoriesStr;
+    }
+    
+    
 
    
     

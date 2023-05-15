@@ -10,7 +10,6 @@ bjm/bc/ejb/AccessEjb.class
 bjm/bc/util/HashGenerator.class
 bjm/bc/ejb/RevenueCategoryEjbLocal.class
 bjm/bc/model/CentralAccount.class
-bjm/bc/ejb/DistrictEjb.class
 bjm/bc/util/BJMConstants.class
 bjm/bc/mbean/RevenuePartyRegisterMBean.class
 bjm/bc/ejb/EmailerEjbLocal.class
@@ -21,12 +20,9 @@ bjm/bc/ejb/AccessEjbLocal.class
 bjm/bc/ejb/EmailerEjb.class
 bjm/bc/util/FinancialYear.class
 bjm/bc/model/District.class
-bjm/bc/ejb/StateEjb.class
-bjm/bc/ejb/DistrictEjbLocal.class
 bjm/bc/model/ExpenseCategory.class
 bjm/bc/ejb/NewClass.class
 bjm/bc/ejb/RevenueCategoryEjb.class
-bjm/bc/ejb/StateEjbLocal.class
 bjm/bc/model/AccessType.class
 bjm/bc/ejb/RevenuePartyEjb.class
 bjm/bc/ejb/RevenueAccountEjb.class

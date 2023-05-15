@@ -5,10 +5,10 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.RevenueCategory;
-import jakarta.ejb.Stateless;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,7 +29,7 @@ public class RevenueCategoryEjb implements RevenueCategoryEjbLocal {
         TypedQuery<RevenueCategory> tQ = em.createQuery("select rc from RevenueCategory rc where rc.year=?1", RevenueCategory.class);
         tQ.setParameter(1, year);
         List<RevenueCategory> revenueCategories = tQ.getResultList();
-        LOGGER.info(String.format("Total Revenue Categories for year: {1} are {2}", year, revenueCategories.size()));
+        LOGGER.info(String.format("Total Revenue Categories for year: %d are %d", year, revenueCategories.size()));
         return revenueCategories;
     }
 }

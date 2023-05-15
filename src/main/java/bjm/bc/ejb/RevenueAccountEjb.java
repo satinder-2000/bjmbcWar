@@ -5,10 +5,10 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.RevenueAccount;
-import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.logging.Logger;
 
 /**

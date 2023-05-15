@@ -1,7 +1,7 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.RevenueAccount;
-import jakarta.ejb.Local;
+import javax.ejb.Local;
 
 @Local
 public interface RevenueAccountEjbLocal {

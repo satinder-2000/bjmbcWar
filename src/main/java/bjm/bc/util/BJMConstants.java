@@ -11,5 +11,6 @@ package bjm.bc.util;
 public interface BJMConstants {
     
     public static String EMAIL_REGEX="^(.+)@(.+)$";
+    public static String PW_REGEX="^(?=.*\\d).{8,14}$";
     
 }

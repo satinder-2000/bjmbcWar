@@ -8,13 +8,13 @@ import bjm.bc.ejb.exception.UserRegisteredAlreadyException;
 import bjm.bc.model.RevenueAccount;
 import bjm.bc.model.RevenueParty;
 import bjm.bc.util.HashGenerator;
-import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
-import jakarta.mail.MessagingException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -92,6 +92,8 @@ public class RevenuePartyEjb implements RevenuePartyEjbLocal {
 
     @Override
     public RevenueParty findByEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        TypedQuery<RevenueParty> tQ=em.createQuery("select rp from RevenueParty rp where rp.email=?1", RevenueParty.class);
+        tQ.setParameter(1, email);
+        return tQ.getSingleResult();
     }
 }

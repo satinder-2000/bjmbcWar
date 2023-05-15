@@ -5,7 +5,7 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.ExpenseAccount;
-import jakarta.ejb.Local;
+import javax.ejb.Local;
 
 /**
  *

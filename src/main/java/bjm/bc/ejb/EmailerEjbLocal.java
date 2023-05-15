@@ -6,8 +6,8 @@ package bjm.bc.ejb;
 
 import bjm.bc.model.ExpenseParty;
 import bjm.bc.model.RevenueParty;
-import jakarta.ejb.Local;
-import jakarta.mail.MessagingException;
+import javax.ejb.Local;
+import javax.mail.MessagingException;
 
 /**
  *

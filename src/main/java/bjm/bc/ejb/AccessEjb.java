@@ -5,11 +5,11 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.Access;
-import jakarta.ejb.Stateless;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
@@ -71,5 +71,17 @@ public class AccessEjb implements AccessEjbLocal {
         access.setFailedAttempts(access.getFailedAttempts()+1);
         if(access.getFailedAttempts()==MAX_PERMITTED_FAILED_ATTEMPTS);
         return lockAccess(access);
+    }
+
+    @Override
+    public Access findByEmailAndAccessType(String email, String accessType) {
+        TypedQuery<Access> tQ=em.createQuery("select a from Access a where a.email=?1 and a.accessType=?2", Access.class);
+        tQ.setParameter(1, email);
+        tQ.setParameter(2, accessType);
+        try{
+            return tQ.getSingleResult();
+        }catch(NoResultException ex){
+            return null;
+        }
     }
 }

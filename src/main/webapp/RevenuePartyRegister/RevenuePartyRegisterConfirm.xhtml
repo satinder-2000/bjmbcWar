@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/WEB-INF/bjmbcTemplate.xhtml">
+
+    <ui:define name="content">
+        <div class="container col-sm-8">
+            <h1>Revenue Party Registration - Confirm</h1>
+            <br/>
+            <h:form prependId="false">
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label for="name">Name:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText id="name" value="#{revenuePartyRegisterMBean.revenueParty.name}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class=" row form-group">
+                    <div class="col-sm-6">
+                        <label for="email">Email:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText id="email" value="#{revenuePartyRegisterMBean.revenueParty.email}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label for="oAdCNo">Owner Adhaar Card Number:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText id="oAdCNo" value="#{revenuePartyRegisterMBean.revenueParty.ownerAdhaarNumber}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col">
+                        <label for="orgn">Organisation::</label>
+                    </div>
+                    <div class="col">
+                        <h:outputText id="orgn" value="#{revenuePartyRegisterMBean.revenueParty.organisation}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col">
+                        <label for="revCat">Select Accounts:</label>
+                    </div>
+                    <div class="col">
+                        <ul id="revCats">
+                            <ui:repeat value="#{revenuePartyRegisterMBean.partyRevenueCategories}" var="rC">
+                                <li><h:outputText value="#{rC}" /></li>
+                            </ui:repeat>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col">
+                        <label for="memDate">Memorable Date:</label>
+                    </div>
+                    <div class="col">
+                        <h:outputText id="memDate" value="#{revenuePartyRegisterMBean.memorableDateStr}" styleClass="form-control">
+                        </h:outputText>
+                    </div>
+                </div>
+                <br/>
+                </h:form>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:form>
+                        <h:commandButton id="amendBtn" value="Amend" action="#{revenuePartyRegisterMBean.amendDetails()}" styleClass="btn btn-primary" />
+                        </h:form>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:form>
+                        <h:commandButton id="continueBtn" value="Continue" action="returnFromRevenuePartyRegisterFlow" styleClass="btn btn-primary" />
+                        </h:form>
+                    </div>                        
+                </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

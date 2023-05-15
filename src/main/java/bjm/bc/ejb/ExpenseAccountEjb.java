@@ -6,12 +6,12 @@ package bjm.bc.ejb;
 
 import bjm.bc.model.ExpenseAccount;
 import bjm.bc.model.ExpenseParty;
-import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
-import jakarta.mail.MessagingException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
