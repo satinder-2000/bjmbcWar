@@ -36,6 +36,7 @@ public class ExpenseAccountEjb implements ExpenseAccountEjbLocal {
     @Override
     public ExpenseAccount createExpenseAccount(ExpenseAccount expenseAccount){
         em.persist(expenseAccount);
+        em.flush();
         LOGGER.info("ExpenseAccount record persisted with ID: "+expenseAccount.getId());
         return expenseAccount;
     }
@@ -55,16 +56,16 @@ public class ExpenseAccountEjb implements ExpenseAccountEjbLocal {
     @Override
     public boolean addToBalanceExpenseAccount(int accountId, double balanceToAdd) {
         ExpenseAccount eA=findById(accountId);
-        eA.setBalance(eA.getBalance()+balanceToAdd);
+        //eA.setBalance(eA.getBalance()+balanceToAdd);
         eA = saveExpenseAccount(eA);
-        LOGGER.info(String.format("Expense Account {1} new Balance is {2}", accountId, eA.getBalance()));
+        //LOGGER.info(String.format("Expense Account {1} new Balance is {2}", accountId, eA.getBalance()));
         return true;
     }
 
     @Override
     public boolean withdrawFromBalanceExpenseAccount(int accountId, double balanceToWithdraw) {
         ExpenseAccount eA=findById(accountId);
-        eA.setBalance(eA.getBalance()-balanceToWithdraw);
+        /*eA.setBalance(eA.getBalance()-balanceToWithdraw);
         if (eA.getBalance()<0){
             int expPartyId = eA.getExpensePartyId();
             ExpenseParty ep=epl.findById(expPartyId);
@@ -73,7 +74,7 @@ public class ExpenseAccountEjb implements ExpenseAccountEjbLocal {
             } catch (MessagingException ex) {
                 Logger.getLogger(ExpenseAccountEjb.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/
         em.persist(eA);
         return true;
     }

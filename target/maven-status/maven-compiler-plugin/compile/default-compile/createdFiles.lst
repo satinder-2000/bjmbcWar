@@ -1,5 +1,6 @@
 bjm/bc/model/ExpenseAccount.class
 bjm/bc/ejb/RevenuePartyEjbLocal.class
+bjm/bc/util/PasswordUtil.class
 bjm/bc/ejb/RevenueAccountEjbLocal.class
 bjm/bc/model/RevenueParty.class
 bjm/bc/ejb/ExpenseCategoryEjb.class
@@ -10,6 +11,7 @@ bjm/bc/ejb/AccessEjb.class
 bjm/bc/util/HashGenerator.class
 bjm/bc/ejb/RevenueCategoryEjbLocal.class
 bjm/bc/model/CentralAccount.class
+bjm/bc/mbean/AccessCreateMBean.class
 bjm/bc/util/BJMConstants.class
 bjm/bc/mbean/RevenuePartyRegisterMBean.class
 bjm/bc/ejb/EmailerEjbLocal.class

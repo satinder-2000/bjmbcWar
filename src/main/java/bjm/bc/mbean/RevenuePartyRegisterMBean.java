@@ -7,6 +7,7 @@ package bjm.bc.mbean;
 import bjm.bc.ejb.RevenueCategoryEjbLocal;
 import bjm.bc.ejb.RevenuePartyEjbLocal;
 import bjm.bc.ejb.exception.UserRegisteredAlreadyException;
+import bjm.bc.model.RevenueAccount;
 import bjm.bc.model.RevenueCategory;
 import bjm.bc.model.RevenueParty;
 import bjm.bc.model.State;
@@ -23,6 +24,7 @@ import javax.inject.Named;
 import javax.mail.MessagingException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +112,17 @@ public class RevenuePartyRegisterMBean implements Serializable {
         if (!memorableDateStr.isEmpty()){
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             revenueParty.setMemorableDate(LocalDate.parse(memorableDateStr, formatter));
+        }
+        
+        //Create RevenuePartyAccounts
+        for(String revCat : partyRevenueCategories){
+            RevenueAccount ra= new RevenueAccount();
+            ra.setRevenueAccountHash(HashGenerator.generateHash(revCat));
+            //Will attach the RevenueParty Id in the EJB, when the ID becomes available.
+            if (revenueParty.getRevenueAccounts()==null){
+                revenueParty.setRevenueAccounts(new ArrayList<RevenueAccount>());
+            }
+            revenueParty.getRevenueAccounts().add(ra);
         }
         
         //finally create PartyHash

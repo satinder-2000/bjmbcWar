@@ -48,6 +48,7 @@ public class ExpensePartyEjb implements ExpensePartyEjbLocal {
 		expAcctHashes[i]=ea.getExpenseAccountHash();
 	}
         em.persist(expenseParty);
+        em.flush();
         LOGGER.info(String.format("Expense Party created with ID: %d",expenseParty.getId()));
         for(ExpenseAccount ea : expenseParty.getExpenseAccounts()){
             ea.setExpensePartyId(expenseParty.getId());

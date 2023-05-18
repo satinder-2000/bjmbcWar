@@ -18,6 +18,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
 
 /**
  *
@@ -33,6 +35,9 @@ public class EmailerEjb implements EmailerEjbLocal {
     
     @Resource(name="accessCreateURL")
     String accessCreateURL;
+    
+    @Resource(name="loginURI")
+    String loginURI;
 
     @Override
     public void sendRevenuePartyRegistrationEmail(RevenueParty rp) {
@@ -41,12 +46,14 @@ public class EmailerEjb implements EmailerEjbLocal {
         StringBuilder htmlMsg = new StringBuilder("<h2>Dear, "+rp.getName()+ "</h2>");
         htmlMsg.append("<p>Congratulations on registering yourself successfully as "+AccessType.REVENUE_PARTY.toString()+".</p>");
         htmlMsg.append("<p>As a final step, please create your account password by following the link below:</p>");
-        htmlMsg.append("<p>"+accessCreateURL+"</p>");
+        String accessCreate=String.format(accessCreateURL, rp.getEmail(), AccessType.REVENUE_PARTY.toString());
+        htmlMsg.append("<p>"+accessCreate+"</p>");
         htmlMsg.append("<p>Best Wishes, <br/>www.bjmbc.net Admin</p>");
         MimeBodyPart htmlPart = new MimeBodyPart();
         try {
             htmlPart.setContent( htmlMsg.toString(), "text/html; charset=utf-8" );
             multipart.addBodyPart(htmlPart);
+            mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(rp.getEmail()));
             mimeMessage.setContent(multipart);
             Transport.send(mimeMessage);
             LOGGER.info("Sent message successfully....");
@@ -57,12 +64,48 @@ public class EmailerEjb implements EmailerEjbLocal {
 
     @Override
     public void sendExpensePartyRegistrationEmail(ExpenseParty ep) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        MimeMessage mimeMessage = new MimeMessage(session);
+        Multipart multipart = new MimeMultipart();
+        StringBuilder htmlMsg = new StringBuilder("<h2>Dear, "+ep.getName()+ "</h2>");
+        htmlMsg.append("<p>Congratulations on registering yourself successfully as "+AccessType.EXPENSE_PARTY.toString()+".</p>");
+        htmlMsg.append("<p>As a final step, please create your account password by following the link below:</p>");
+        String accessCreate=String.format(accessCreateURL, ep.getEmail(), AccessType.EXPENSE_PARTY.toString());
+        htmlMsg.append("<p>"+accessCreate+"</p>");
+        htmlMsg.append("<p>Best Wishes, <br/>www.bjmbc.net Admin</p>");
+        MimeBodyPart htmlPart = new MimeBodyPart();
+        try {
+            htmlPart.setContent( htmlMsg.toString(), "text/html; charset=utf-8" );
+            multipart.addBodyPart(htmlPart);
+            mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(ep.getEmail()));
+            mimeMessage.setContent(multipart);
+            Transport.send(mimeMessage);
+            LOGGER.info("Sent message successfully....");
+        } catch (MessagingException ex) {
+            Logger.getLogger(EmailerEjb.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void sendAccessCreatedEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        MimeMessage mimeMessage = new MimeMessage(session);
+        Multipart multipart = new MimeMultipart();
+        StringBuilder htmlMsg = new StringBuilder("<h2>Dear, "+email+ "</h2>");
+        htmlMsg.append("<p>Congratulations on creating your access successfully on bjmbc.net.</p>");
+        htmlMsg.append("<p>We look forward to a long parthership for the functioning of the portal.</p>");
+        htmlMsg.append("<p>Kindly, use the link below to login and resume your activities:</p>");
+        htmlMsg.append("<p><a href='+loginURI='>"+loginURI+"</a></p>");
+        htmlMsg.append("<p>Best Wishes, <br/>www.bjmbc.net Admin</p>");
+        MimeBodyPart htmlPart = new MimeBodyPart();
+        try {
+            htmlPart.setContent( htmlMsg.toString(), "text/html; charset=utf-8" );
+            multipart.addBodyPart(htmlPart);
+            mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(email));
+            mimeMessage.setContent(multipart);
+            Transport.send(mimeMessage);
+            LOGGER.info("Sent message successfully....");
+        } catch (MessagingException ex) {
+            Logger.getLogger(EmailerEjb.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Add business logic below. (Right-click in editor and choose

@@ -32,6 +32,9 @@ public class RevenuePartyEjb implements RevenuePartyEjbLocal {
     
     @Inject
     RevenueAccountEjbLocal ral;
+    
+    @Inject
+    EmailerEjbLocal eel; 
 
     @Override
     public RevenueParty createRevenueParty(RevenueParty revenueParty) throws UserRegisteredAlreadyException, MessagingException {
@@ -41,12 +44,14 @@ public class RevenuePartyEjb implements RevenuePartyEjbLocal {
 		revAcctHashes[i]=ra.getRevenueAccountHash();
 	}
         em.persist(revenueParty);
+        em.flush();
         LOGGER.info(String.format("Revenue Party created with ID: %d",revenueParty.getId()));
         for(RevenueAccount ra : revenueParty.getRevenueAccounts()){
             ra.setRevenuePartyId(revenueParty.getId());
-            ral.saveRevenueAccount(ra);
+            ral.createRevenueAccount(ra);
         }
         LOGGER.info(String.format("%d Revenue Accounts updated with RevenueParty Id %d",revenueParty.getRevenueAccounts().size(),revenueParty.getId()));
+        eel.sendRevenuePartyRegistrationEmail(revenueParty);
         return revenueParty;
     }
 

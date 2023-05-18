@@ -32,6 +32,7 @@ public class RevenueAccountEjb implements RevenueAccountEjbLocal {
     @Override
     public RevenueAccount createRevenueAccount(RevenueAccount revenueAccount) {
         em.persist(revenueAccount);
+        em.flush();
         LOGGER.info("RevenueAccount record persisted with ID: "+revenueAccount.getId());
         return revenueAccount;
     }
@@ -51,9 +52,10 @@ public class RevenueAccountEjb implements RevenueAccountEjbLocal {
     @Override
     public boolean addToBalanceRevenueAccount(int accountId, double balanceToAdd) {
         RevenueAccount rA=findById(accountId);
-        rA.setBalance(rA.getBalance()+balanceToAdd);
+        /*rA.setBalance(rA.getBalance()+balanceToAdd);
         rA = saveRevenueAccount(rA);
         LOGGER.info(String.format("Revenue Account {1} new Balance is {2}", accountId, rA.getBalance()));
+        */
         return true;
     }
 

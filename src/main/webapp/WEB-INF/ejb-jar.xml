@@ -6,9 +6,9 @@
     
     <enterprise-beans>
         <session>
-            <display-name>EmailerBean</display-name>
-            <ejb-name>EmailerBean</ejb-name>
-            <ejb-class>bjm.bc.ejb.EmailerBean</ejb-class>
+            <display-name>EmailerEjb</display-name>
+            <ejb-name>EmailerEjb</ejb-name>
+            <ejb-class>bjm.bc.ejb.EmailerEjb</ejb-class>
             <env-entry>
                 <env-entry-name>sender</env-entry-name>
                 <env-entry-type>java.lang.String</env-entry-type>
@@ -28,9 +28,9 @@
             </env-entry>
             
              <env-entry>
-                <env-entry-name>welcomeURI</env-entry-name>
+                <env-entry-name>loginURI</env-entry-name>
                 <env-entry-type>java.lang.String</env-entry-type>
-                <env-entry-value>home/UserWelcome.xhtml</env-entry-value>
+                <env-entry-value>login.xhtml</env-entry-value>
             </env-entry>
             <env-entry>
                 <env-entry-name>surveyURI</env-entry-name>
@@ -46,32 +46,6 @@
                 <env-entry-name>passwordResetURI</env-entry-name>
                 <env-entry-type>java.lang.String</env-entry-type>
                 <env-entry-value>home/AccessReset.xhtml</env-entry-value>
-            </env-entry>
-        </session>
-        
-        
-        <session>
-            <ejb-name>ActivityBean</ejb-name>
-            <ejb-class>org.bjm.ejb.ActivityBean</ejb-class>
-            <env-entry>
-                <env-entry-name>maxActivities</env-entry-name>
-                <env-entry-type>java.lang.Integer</env-entry-type>
-                <env-entry-value>25</env-entry-value>
-            </env-entry>
-        </session>
-        
-         <session>
-            <ejb-name>SearchEngineBean</ejb-name>
-            <ejb-class>org.bjm.ejb.SearchEngineBean</ejb-class>
-            <env-entry>
-                <env-entry-name>indexDir</env-entry-name>
-                <env-entry-type>java.lang.String</env-entry-type>
-                <env-entry-value>/opt/lucene/</env-entry-value>
-            </env-entry>
-            <env-entry>
-                <env-entry-name>maxResults</env-entry-name>
-                <env-entry-type>java.lang.Integer</env-entry-type>
-                <env-entry-value>20</env-entry-value>
             </env-entry>
         </session>
     </enterprise-beans>
