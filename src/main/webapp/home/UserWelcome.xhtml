@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/bjmbcTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <div class="col-sm-8">
+            <h2>Registration</h2>
+            <div class="row">
+                <h6>You have successfully completed your registration. Kindly proceed to Login by following the link below:</h6>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-sm-6"></div>
+                
+                <div class="col-sm-6">
+                    <h:outputLink value="#{request.contextPath}/Login.xhtml" styleClass="btn btn-primary">Login</h:outputLink>
+                    
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

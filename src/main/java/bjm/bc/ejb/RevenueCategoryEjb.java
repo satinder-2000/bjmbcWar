@@ -32,4 +32,12 @@ public class RevenueCategoryEjb implements RevenueCategoryEjbLocal {
         LOGGER.info(String.format("Total Revenue Categories for year: %d are %d", year, revenueCategories.size()));
         return revenueCategories;
     }
+
+    @Override
+    public RevenueCategory findByNameAndYear(String revCat, int year) {
+        TypedQuery<RevenueCategory> tQ = em.createQuery("select rc from RevenueCategory rc where rc.revenueCategory=?1 and rc.year=?2", RevenueCategory.class);
+        tQ.setParameter(1, revCat);
+        tQ.setParameter(2, year);
+        return tQ.getSingleResult();
+    }
 }

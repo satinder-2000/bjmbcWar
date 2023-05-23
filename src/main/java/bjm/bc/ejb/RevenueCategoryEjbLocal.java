@@ -16,5 +16,7 @@ import java.util.List;
 public interface RevenueCategoryEjbLocal {
     
     public List<RevenueCategory> getRevenueCategoriesForYear(int year);
+
+    public RevenueCategory findByNameAndYear(String revCat, int year);
     
 }

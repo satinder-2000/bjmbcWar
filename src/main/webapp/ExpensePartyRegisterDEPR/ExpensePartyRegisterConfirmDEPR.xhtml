@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="/WEB-INF/bjmbcTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <div class="container col-sm-8">
+            <h1>Expense Party Register</h1>
+            <h:form styleClass="form-horizontal" enctype="multipart/form-data" prependId="false">
+                <br/>
+                <h:messages id="messages" infoStyle="color:blue;margin:5px;" errorStyle="color:red;margin:5px;"/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:outputLabel for="name" value="Name:" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText id="name" value="#{expensePartyRegisterMBean.expenseParty.name}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:outputLabel for="email" value="Email:" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText id="email" value="#{expensePartyRegisterMBean.expenseParty.email}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:outputLabel for="oAdCNo" value="Owner Adhaar Card Number:" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText id="oAdCNo" value="#{expensePartyRegisterMBean.expenseParty.ownerAdhaarNumber}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:outputLabel for="orgn" value="Organisation:" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText id="orgnAdCNo" value="#{expensePartyRegisterMBean.expenseParty.organisation}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:outputLabel for="expCats" value="Select Accounts:" />
+                    </div>
+                    <div class="col-sm-6">
+                        <ui:repeat value="#{expensePartyRegisterMBean.partyExpenseCategories}" var="eC">
+                                <li><h:outputText value="#{eC}" /></li>
+                        </ui:repeat>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:outputLabel for="memDt" value="Memorable Date:" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText id="memDate" value="#{expensePartyRegisterMBean.memorableDateStr}" styleClass="form-control" />
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <h:form>
+                        <h:commandButton id="amendBtn" value="Amend" action="#{expensePartyRegisterMBean.amendDetails()}" styleClass="btn btn-primary" />
+                        </h:form>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:form>
+                        <h:commandButton id="continueBtn" value="Continue" action="returnFromExpensePartyRegisterFlow" styleClass="btn btn-primary" />
+                        </h:form>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

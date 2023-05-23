@@ -5,6 +5,8 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.Access;
+import bjm.bc.model.ExpenseParty;
+import bjm.bc.model.RevenueParty;
 import javax.ejb.Local;
 
 /**
@@ -18,6 +20,8 @@ public interface AccessEjbLocal {
     
     public Access createAccess(Access access);
     
+    public Access createRevenuePartyAccess(RevenueParty revenueParty);
+    
     public Access updateAccess(Access access);
     
     public Access lockAccess(Access access);
@@ -29,6 +33,8 @@ public interface AccessEjbLocal {
     public Access findByEmailAndAccessType(String email, String accessType);
     
     public Access increaseFailedLoginnAttempt(Access access);
+
+    public Access createExpensePartyAccess(ExpenseParty expenseParty);
     
     
 }

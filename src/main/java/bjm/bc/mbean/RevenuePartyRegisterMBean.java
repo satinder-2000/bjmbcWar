@@ -33,6 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -43,9 +44,6 @@ import java.util.regex.Pattern;
 public class RevenuePartyRegisterMBean implements Serializable {
     
     private static final Logger LOGGER=Logger.getLogger(RevenuePartyRegisterMBean.class.getName());
-    private static final String DEFAULT_CODE="NA";
-    
-    private ExternalContext externalContext;
     private RevenueParty revenueParty;
     private List<RevenueCategory> revenueCategories;
     private List<String> revenueCategoriesStr;
@@ -59,13 +57,9 @@ public class RevenuePartyRegisterMBean implements Serializable {
     
     @PostConstruct
     public void init(){
-        externalContext=FacesContext.getCurrentInstance().getExternalContext();
         revenueParty=new RevenueParty();
         revenueCategories=new ArrayList<>();
         revenueCategoriesStr= new ArrayList<>();
-        RevenueCategory dummyRevCat= new RevenueCategory();
-        dummyRevCat.setRevenueCategory(DEFAULT_CODE);
-        revenueCategories.add(dummyRevCat);
         revenueCategories.addAll(revenueCategoryEjbLocal.getRevenueCategoriesForYear(FinancialYear.financialYear()));
         for (RevenueCategory rc: revenueCategories){
            revenueCategoriesStr.add(rc.getRevenueCategory());
@@ -87,8 +81,6 @@ public class RevenuePartyRegisterMBean implements Serializable {
         }else if(revenueParty.getName().length()<2 || revenueParty.getName().length()>45){
             FacesContext.getCurrentInstance().addMessage("name", new FacesMessage(FacesMessage.SEVERITY_ERROR, rb.getString("nameCharsLimit"), rb.getString("nameCharsLimit")));
         }
-        
-        
         //Validate email if Exists
         if (revenueParty.getEmail().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage("email", new FacesMessage(FacesMessage.SEVERITY_ERROR, rb.getString("emailRequired"), rb.getString("emailRequired")));
@@ -118,9 +110,11 @@ public class RevenuePartyRegisterMBean implements Serializable {
         for(String revCat : partyRevenueCategories){
             RevenueAccount ra= new RevenueAccount();
             ra.setRevenueAccountHash(HashGenerator.generateHash(revCat));
+            RevenueCategory rc=revenueCategoryEjbLocal.findByNameAndYear(revCat, FinancialYear.financialYear());
+            ra.setRevenueCategoryId(rc.getId());
             //Will attach the RevenueParty Id in the EJB, when the ID becomes available.
             if (revenueParty.getRevenueAccounts()==null){
-                revenueParty.setRevenueAccounts(new ArrayList<RevenueAccount>());
+                revenueParty.setRevenueAccounts(new ArrayList<>());
             }
             revenueParty.getRevenueAccounts().add(ra);
         }

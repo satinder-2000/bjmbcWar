@@ -24,21 +24,4 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
     
-    <!-- navigation-rule>
-    <from-view-id>/RevenuePartyRegister/RevenuePartyRegister.xhtml</from-view-id>
-
-    <navigation-case>
-       <from-action>#{revenuePartyRegisterMBean.validateRevenueParty()}</from-action>
-       <from-outcome>NoError</from-outcome>
-       <to-view-id>RevenuePartyRegisterConfirm.xhtml</to-view-id>
-       <redirect/>
-    </navigation-case>
-
-    <navigation-case>
-        <from-action>#{revenuePartyRegisterMBean.validateRevenueParty()}</from-action>
-        <from-outcome>Errors</from-outcome>
-        <to-view-id>null</to-view-id>
-    </navigation-case>
-</navigation-rule -->
-
 </faces-config>

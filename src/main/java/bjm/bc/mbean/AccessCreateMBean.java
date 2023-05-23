@@ -53,8 +53,8 @@ public class AccessCreateMBean implements Serializable{
         LOGGER.info("View initialised for Access");
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String email = request.getParameter("email");
-        String accessType=request.getParameter("accessTpe");
-        AccessType accessTypeE=AccessType.valueOf(accessType);
+        String accessType=request.getParameter("accessType");
+        //AccessType accessTypeE=AccessType.valueOf(accessType);
         access = accessEjbLocal.findByEmailAndAccessType(email, accessType);
     }
     
@@ -107,5 +107,12 @@ public class AccessCreateMBean implements Serializable{
         LOGGER.log(Level.INFO, "toReturn is :{0}", toReturn);
         return toReturn;
     }
-    
+
+    public Access getAccess() {
+        return access;
+    }
+
+    public void setAccess(Access access) {
+        this.access = access;
+    }
 }

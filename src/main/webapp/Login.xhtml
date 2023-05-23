@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/bjmbcTemplate.xhtml">
+
+    <ui:define name="content">
+        <div class="col-sm-8">
+
+            <h:form prependId="false">
+                <h1>Log In</h1>
+                <h:messages infoStyle="color:blue;margin:5px;" errorStyle="color:red;margin:5px;"/>
+                <div class="row form-group" style="margin-top: 1em;">
+                    <div class="col-sm-5">
+                        <h:outputLabel for="email" value="Email:"/>  
+                    </div>
+                    <div class="col-sm-5">
+                        <h:inputText id="email" value="" styleClass="form-control"/> 
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 1em;">
+                    <div class="col-sm-5">
+                        <h:outputLabel for="password" value="Password:"/>  
+                    </div>
+                    <div class="col-sm-5">
+                        <h:inputSecret  id="password" value="" styleClass="form-control"/> 
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 1em;">
+                    <div class="col-sm-5">
+                        <h:outputLabel value=" "/>  
+                    </div>
+                    <div class="col-sm-5">
+                        <h:commandButton id="submitBtn" value="Login" action="" styleClass="btn btn-primary">
+                            <f:ajax execute="@form" render="@form" />
+                        </h:commandButton>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2em;">
+                    <div class="col-sm-10">
+                        <p class="text-center">
+                            <h:outputLink value="#{request.contextPath}/DispatchAccessReset.xhtml?faces-redirect=true">
+                                Forgot Password? Click here to reset
+                            </h:outputLink>
+                        </p>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

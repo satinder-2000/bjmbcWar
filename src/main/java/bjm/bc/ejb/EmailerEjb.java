@@ -33,8 +33,11 @@ public class EmailerEjb implements EmailerEjbLocal {
     @Resource(name = "mail/bjmbc")
     Session session;
     
-    @Resource(name="accessCreateURL")
-    String accessCreateURL;
+    @Resource(name = "WebURI")
+    String webURI;
+    
+    @Resource(name="accessCreateURI")
+    String accessCreateURI;
     
     @Resource(name="loginURI")
     String loginURI;
@@ -46,7 +49,8 @@ public class EmailerEjb implements EmailerEjbLocal {
         StringBuilder htmlMsg = new StringBuilder("<h2>Dear, "+rp.getName()+ "</h2>");
         htmlMsg.append("<p>Congratulations on registering yourself successfully as "+AccessType.REVENUE_PARTY.toString()+".</p>");
         htmlMsg.append("<p>As a final step, please create your account password by following the link below:</p>");
-        String accessCreate=String.format(accessCreateURL, rp.getEmail(), AccessType.REVENUE_PARTY.toString());
+        String accessCreate=String.format(accessCreateURI, rp.getEmail(), AccessType.REVENUE_PARTY.toString());
+        htmlMsg.append(webURI).append(accessCreateURI).append(rp.getEmail()).append("&accessType="+AccessType.REVENUE_PARTY.toString());
         htmlMsg.append("<p>"+accessCreate+"</p>");
         htmlMsg.append("<p>Best Wishes, <br/>www.bjmbc.net Admin</p>");
         MimeBodyPart htmlPart = new MimeBodyPart();
@@ -69,7 +73,8 @@ public class EmailerEjb implements EmailerEjbLocal {
         StringBuilder htmlMsg = new StringBuilder("<h2>Dear, "+ep.getName()+ "</h2>");
         htmlMsg.append("<p>Congratulations on registering yourself successfully as "+AccessType.EXPENSE_PARTY.toString()+".</p>");
         htmlMsg.append("<p>As a final step, please create your account password by following the link below:</p>");
-        String accessCreate=String.format(accessCreateURL, ep.getEmail(), AccessType.EXPENSE_PARTY.toString());
+        String accessCreate=String.format(accessCreateURI, ep.getEmail(), AccessType.EXPENSE_PARTY.toString());
+        htmlMsg.append(webURI).append(accessCreateURI).append(ep.getEmail()).append("&accessType="+AccessType.EXPENSE_PARTY.toString());
         htmlMsg.append("<p>"+accessCreate+"</p>");
         htmlMsg.append("<p>Best Wishes, <br/>www.bjmbc.net Admin</p>");
         MimeBodyPart htmlPart = new MimeBodyPart();
@@ -93,7 +98,7 @@ public class EmailerEjb implements EmailerEjbLocal {
         htmlMsg.append("<p>Congratulations on creating your access successfully on bjmbc.net.</p>");
         htmlMsg.append("<p>We look forward to a long parthership for the functioning of the portal.</p>");
         htmlMsg.append("<p>Kindly, use the link below to login and resume your activities:</p>");
-        htmlMsg.append("<p><a href='+loginURI='>"+loginURI+"</a></p>");
+        htmlMsg.append("<p><a href='+loginURI='>"+webURI+loginURI+"</a></p>");
         htmlMsg.append("<p>Best Wishes, <br/>www.bjmbc.net Admin</p>");
         MimeBodyPart htmlPart = new MimeBodyPart();
         try {

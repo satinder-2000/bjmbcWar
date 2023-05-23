@@ -17,14 +17,14 @@
             <env-entry>
                 <env-entry-name>WebURI</env-entry-name>
                 <env-entry-type>java.lang.String</env-entry-type>
-                <env-entry-value>http://www.bjmanch.in/</env-entry-value>
+                <env-entry-value>http://localhost:8080/bjmbcWar/</env-entry-value>
             </env-entry>
            
             
             <env-entry>
                 <env-entry-name>accessCreateURI</env-entry-name>
                 <env-entry-type>java.lang.String</env-entry-type>
-                <env-entry-value>AccessCreate.xhtml?email=%s&amp;accessType=%s</env-entry-value>
+                <env-entry-value>AccessCreate.xhtml?email=</env-entry-value>
             </env-entry>
             
              <env-entry>

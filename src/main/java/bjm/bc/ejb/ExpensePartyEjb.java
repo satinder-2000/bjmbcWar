@@ -5,9 +5,11 @@
 package bjm.bc.ejb;
 
 import bjm.bc.ejb.exception.UserRegisteredAlreadyException;
+import bjm.bc.model.Access;
 import bjm.bc.model.ExpenseAccount;
 import bjm.bc.model.ExpenseParty;
 import bjm.bc.util.HashGenerator;
+import java.sql.Timestamp;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -31,6 +34,12 @@ public class ExpensePartyEjb implements ExpensePartyEjbLocal {
     
     @Inject
     ExpenseAccountEjbLocal eal;
+    
+    @Inject
+    EmailerEjbLocal eel;
+    
+    @Inject
+    private AccessEjbLocal ael;
     
     
     
@@ -52,9 +61,15 @@ public class ExpensePartyEjb implements ExpensePartyEjbLocal {
         LOGGER.info(String.format("Expense Party created with ID: %d",expenseParty.getId()));
         for(ExpenseAccount ea : expenseParty.getExpenseAccounts()){
             ea.setExpensePartyId(expenseParty.getId());
+            ea.setCreatedOn(new Timestamp(System.currentTimeMillis()));
             eal.saveExpenseAccount(ea);
         }
         LOGGER.info(String.format("%d Expense Accounts updated with ExpenseParty Id %d",expenseParty.getExpenseAccounts().size(),expenseParty.getId()));
+        //Create Acccess record now.
+        Access access= ael.createExpensePartyAccess(expenseParty);
+        LOGGER.info(String.format("Access ID for the Expense Party %d is %d",expenseParty.getId(),access.getId()));
+        eel.sendExpensePartyRegistrationEmail(expenseParty);
+        
         return expenseParty;
     }
 
@@ -94,5 +109,18 @@ public class ExpensePartyEjb implements ExpensePartyEjbLocal {
         TypedQuery<ExpenseParty> tQ=em.createQuery("select ep from ExpenseParty ep where ep.email=?1", ExpenseParty.class);
         tQ.setParameter(1, email);
         return tQ.getSingleResult();
+    }
+
+    @Override
+    public boolean isEmailRegistered(String email) {
+        TypedQuery<ExpenseParty> tQ=em.createQuery("select ep from ExpenseParty ep where ep.email=?1", ExpenseParty.class);
+        tQ.setParameter(1, email);
+        try{
+            tQ.getSingleResult();
+            return true;
+        }catch(NoResultException ex){
+            //good for us
+            return false;
+        }
     }
 }

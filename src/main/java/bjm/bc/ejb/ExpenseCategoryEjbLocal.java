@@ -5,6 +5,7 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.ExpenseCategory;
+import java.util.Collection;
 import javax.ejb.Local;
 import java.util.List;
 
@@ -18,5 +19,6 @@ public interface ExpenseCategoryEjbLocal {
     public List<ExpenseCategory> getExpenseCategories();
     
     public List<ExpenseCategory> getExpenseCategoriesForYear(int year);
-    
+
+    public ExpenseCategory findByNameAndYear(String expCat, int year);
 }

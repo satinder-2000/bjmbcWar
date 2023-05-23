@@ -5,6 +5,9 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.Access;
+import bjm.bc.model.AccessType;
+import bjm.bc.model.ExpenseParty;
+import bjm.bc.model.RevenueParty;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -28,14 +31,40 @@ public class AccessEjb implements AccessEjbLocal {
     @Override
     public Access createAccess(Access access) {
         em.persist(access);
-        LOGGER.info("Access record persisted with ID: "+access.getId());
+        LOGGER.info(String.format("Access record persisted with ID: {1}"+access.getId()));
+        return access;
+    }
+    
+    @Override
+    public Access createRevenuePartyAccess(RevenueParty revenueParty) {
+        Access access =new Access();
+        access.setAccessType(AccessType.REVENUE_PARTY.toString());
+        access.setAccountLocked(false);
+        access.setEmail(revenueParty.getEmail());
+        access.setFailedAttempts(0);
+        em.persist(access);
+        em.flush();
+        LOGGER.info(String.format("Access record for Revenue Party {1} persisted with ID: {2} ",revenueParty.getId(),access.getId()));
+        return access;
+    }
+    
+    @Override
+    public Access createExpensePartyAccess(ExpenseParty expenseParty) {
+        Access access =new Access();
+        access.setAccessType(AccessType.EXPENSE_PARTY.toString());
+        access.setAccountLocked(false);
+        access.setEmail(expenseParty.getEmail());
+        access.setFailedAttempts(0);
+        em.persist(access);
+        em.flush();
+        LOGGER.info(String.format("Access record for Expense Party {1} persisted with ID: {2} ",expenseParty.getId(),access.getId()));
         return access;
     }
 
     @Override
     public Access updateAccess(Access access) {
         access = em.merge(access);
-        LOGGER.info("Access record updated  with ID: "+access.getId());
+        LOGGER.info(String.format("Access record updated with ID: {1}"+access.getId()));
         return access;
     }
 
@@ -84,4 +113,8 @@ public class AccessEjb implements AccessEjbLocal {
             return null;
         }
     }
+
+    
+
+    
 }

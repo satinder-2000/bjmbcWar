@@ -1,5 +1,6 @@
 package bjm.bc.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ public class RevenueAccount {
     @Column(name = "NAME")
     private String name;
     @Column(name="CREATED_ON")
-    private LocalDateTime createdOn;
+    private Timestamp createdOn;
 
     public int getId() {
         return id;
@@ -66,6 +67,14 @@ public class RevenueAccount {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
     }
 
 }

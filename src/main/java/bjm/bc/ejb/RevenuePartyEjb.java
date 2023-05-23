@@ -5,9 +5,13 @@
 package bjm.bc.ejb;
 
 import bjm.bc.ejb.exception.UserRegisteredAlreadyException;
+import bjm.bc.model.Access;
 import bjm.bc.model.RevenueAccount;
 import bjm.bc.model.RevenueParty;
 import bjm.bc.util.HashGenerator;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -34,7 +38,10 @@ public class RevenuePartyEjb implements RevenuePartyEjbLocal {
     RevenueAccountEjbLocal ral;
     
     @Inject
-    EmailerEjbLocal eel; 
+    EmailerEjbLocal eel;
+    
+    @Inject
+    private AccessEjbLocal ael;
 
     @Override
     public RevenueParty createRevenueParty(RevenueParty revenueParty) throws UserRegisteredAlreadyException, MessagingException {
@@ -48,9 +55,13 @@ public class RevenuePartyEjb implements RevenuePartyEjbLocal {
         LOGGER.info(String.format("Revenue Party created with ID: %d",revenueParty.getId()));
         for(RevenueAccount ra : revenueParty.getRevenueAccounts()){
             ra.setRevenuePartyId(revenueParty.getId());
+            ra.setCreatedOn(new Timestamp(System.currentTimeMillis()));
             ral.createRevenueAccount(ra);
         }
         LOGGER.info(String.format("%d Revenue Accounts updated with RevenueParty Id %d",revenueParty.getRevenueAccounts().size(),revenueParty.getId()));
+        //Create Acccess record now.
+        Access access= ael.createRevenuePartyAccess(revenueParty);
+        LOGGER.info(String.format("Access ID for the Revenue Party %d is %d",revenueParty.getId(),access.getId()));
         eel.sendRevenuePartyRegistrationEmail(revenueParty);
         return revenueParty;
     }

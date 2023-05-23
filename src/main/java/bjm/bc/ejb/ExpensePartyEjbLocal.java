@@ -25,5 +25,7 @@ public interface ExpensePartyEjbLocal {
     public ExpenseParty addMoreExpenseAccounts(ExpenseParty expenseParty, List<ExpenseAccount> moreExpenseAccounts); 
 
     public ExpenseParty findByEmail(String email);
+
+    public boolean isEmailRegistered(String email);
     
 }
