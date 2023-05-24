@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/bjmbcTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <div class="container col-sm-8">
+            <h1>Expense Party Register - Confirm</h1>
+            <br/>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <h:outputLabel for="name" value="Name:"/>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputText id="name" value="#{expensePartyRegisterMBean.expenseParty.name}" styleClass="form-control"/>
+                </div>
+            </div>
+            <br/>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <h:outputLabel for="email" value="Email:"/>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputText id="email" value="#{expensePartyRegisterMBean.expenseParty.email}" styleClass="form-control"/>
+                </div>
+            </div>
+            <br/>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <h:outputLabel for="oAdCNo" value="Owner Adhaar Card No:"/>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputText id="oAdCNo" value="#{expensePartyRegisterMBean.expenseParty.ownerAdhaarNumber}" styleClass="form-control"/>
+                </div>
+            </div>
+            <br/>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <h:outputLabel for="orgn" value="Organisation:"/>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputText id="orgn" value="#{expensePartyRegisterMBean.expenseParty.organisation}" styleClass="form-control"/>
+                </div>
+            </div>
+            <br/>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <h:outputLabel for="expCats" value="Expense Accounts:"/>
+                </div>
+                <div class="col-sm-6">
+                    <ui:repeat value="#{expensePartyRegisterMBean.partyExpenseCategories}" var="eC">
+                        <li><h:outputText value="#{eC}"/></li>
+                    </ui:repeat>
+                </div>
+            </div>
+            <br/>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <h:outputLabel for="memDt" value="Memorable Date:"/>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputText id="memDt" value="#{expensePartyRegisterMBean.memorableDateStr}" styleClass="form-control"/>
+                </div>
+            </div>
+            <br/>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <h:form>
+                        <h:commandButton value="Amend" action="#{expensePartyRegisterMBean.amendDetails()}" styleClass="btn btn-primary"/>
+                    </h:form>
+                </div>
+                <div class="col-sm-6">
+                    <h:form>
+                        <h:commandButton value="Continue" action="returnFromExpensePartyRegisterFlow" styleClass="btn btn-primary"/>
+                    </h:form>
+                    
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

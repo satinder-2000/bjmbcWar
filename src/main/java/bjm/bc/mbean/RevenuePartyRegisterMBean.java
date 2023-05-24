@@ -110,6 +110,7 @@ public class RevenuePartyRegisterMBean implements Serializable {
         for(String revCat : partyRevenueCategories){
             RevenueAccount ra= new RevenueAccount();
             ra.setRevenueAccountHash(HashGenerator.generateHash(revCat));
+            ra.setName(revCat);
             RevenueCategory rc=revenueCategoryEjbLocal.findByNameAndYear(revCat, FinancialYear.financialYear());
             ra.setRevenueCategoryId(rc.getId());
             //Will attach the RevenueParty Id in the EJB, when the ID becomes available.

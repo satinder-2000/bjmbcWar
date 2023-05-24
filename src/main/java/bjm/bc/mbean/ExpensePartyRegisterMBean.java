@@ -6,6 +6,7 @@ package bjm.bc.mbean;
 
 import bjm.bc.ejb.ExpenseCategoryEjbLocal;
 import bjm.bc.ejb.ExpensePartyEjbLocal;
+import bjm.bc.ejb.exception.UserRegisteredAlreadyException;
 import bjm.bc.model.ExpenseAccount;
 import bjm.bc.model.ExpenseCategory;
 import bjm.bc.model.ExpenseParty;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -102,6 +105,7 @@ public class ExpensePartyRegisterMBean implements Serializable {
         for (String expCat: partyExpenseCategories){
             ExpenseAccount ea=new ExpenseAccount();
             ea.setExpenseAccountHash(HashGenerator.generateHash(expCat));
+            ea.setName(expCat);
             ExpenseCategory ec = expenseCategoryEjbLocal.findByNameAndYear(expCat, FinancialYear.financialYear());
             ea.setExpenseCategoryId(ec.getId());
             //Will attach the ExpenseParty Id in the EJB, when the Party ID becomes available.
@@ -122,7 +126,19 @@ public class ExpensePartyRegisterMBean implements Serializable {
         return toReturn;
     }
     
+    private void submitExpenseParty(){
+        try {
+            expenseParty = expensePartyEjbLocal.createExpenseParty(expenseParty);
+            LOGGER.info(String.format("Expense Party created with ID: %d",expenseParty.getId()));
+        } catch (UserRegisteredAlreadyException ex) {
+            Logger.getLogger(ExpensePartyRegisterMBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(ExpensePartyRegisterMBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public String getReturnValue(){
+        submitExpenseParty();
         return "/flowreturns/ExpensePartyRegister-return?faces-redirect=true";
     }
 

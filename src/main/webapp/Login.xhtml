@@ -17,7 +17,7 @@
                         <h:outputLabel for="email" value="Email:"/>  
                     </div>
                     <div class="col-sm-5">
-                        <h:inputText id="email" value="" styleClass="form-control"/> 
+                        <h:inputText id="email" value="#{loginMBean.email}" styleClass="form-control"/> 
                     </div>
                 </div>
                 <div class="row" style="margin-top: 1em;">
@@ -25,7 +25,7 @@
                         <h:outputLabel for="password" value="Password:"/>  
                     </div>
                     <div class="col-sm-5">
-                        <h:inputSecret  id="password" value="" styleClass="form-control"/> 
+                        <h:inputSecret  id="password" value="#{loginMBean.password}" styleClass="form-control"/> 
                     </div>
                 </div>
                 <div class="row" style="margin-top: 1em;">
@@ -33,7 +33,7 @@
                         <h:outputLabel value=" "/>  
                     </div>
                     <div class="col-sm-5">
-                        <h:commandButton id="submitBtn" value="Login" action="" styleClass="btn btn-primary">
+                        <h:commandButton id="submitBtn" value="Login" action="#{loginMBean.login()}" styleClass="btn btn-primary">
                             <f:ajax execute="@form" render="@form" />
                         </h:commandButton>
                     </div>

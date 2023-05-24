@@ -1,4 +1,5 @@
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/util/FinancialYear.java
+/Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/mbean/RevenueAccountManageMBean.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/ExpenseAccountTransfer.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/exception/UserRegisteredAlreadyException.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/ExpenseCategoryEjbLocal.java
@@ -36,6 +37,7 @@
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/model/ExpenseAllocation.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/AccessEjbLocal.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/ExpensePartyEjb.java
+/Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/mbean/RevenuePartyActionsMBean.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/ExpenseAccountEjbLocal.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/RevenueAccountEjb.java
 /Users/user/NBProjs/bjmbcWar/src/main/java/bjm/bc/ejb/EmailerEjbLocal.java

@@ -1,14 +1,44 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/WEB-INF/bjmbcTemplate.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
         <div class="col-sm-8">
             <h2>Revenue Party Home</h2>
-            <div class="row">
-                Contents
-            </div>
+            
+                <h6>Select from your Accounts below to pay money in:</h6>
+                <div class="row">
+                    <div class="col-sm-3"><h:outputLabel value="A/C Name"/></div>
+                    <div class="col-sm-3"><h:outputLabel value="YTD Balance"/></div>
+                    <div class="col-sm-3"><h:outputLabel value="Money In"/></div>
+                    <div class="col-sm-3"><h:outputLabel value="Money Out"/></div>
+                </div>
+                <h:form>
+                <ui:repeat value="#{revenuePartyActionsMBean.revenueParty.revenueAccounts}" var="ra">
+                    <div class="row">
+                        <div class="col-sm-3"><h:outputLabel value="#{ra.name}"/></div>
+                        <div class="col-sm-3"><h:outputLabel value="#{ra.ytdBalance}"/></div>
+                        <div class="col-sm-3"><h:inputText value="#{ra.moneyIn}" size="5"/></div>
+                        <div class="col-sm-3"><h:inputText value="#{ra.moneyOut}" size="5"/></div>
+                    </div>
+                </ui:repeat>
+                    <div class="row">
+                        <div class="col-sm-3"><h:outputLabel value=""/></div>
+                        <div class="col-sm-3"><h:outputLabel value=""/></div>
+                        <div class="col-sm-3"><h:inputText value="" size="5"/></div>
+                        <div class="col-sm-3">
+                            
+                            <h:commandButton value="Process" styleClass="btn btn-primary">
+                            <f:ajax execute="@form" render="@form" listener="#{revenuePartyActionsMBean.ajaxTypeListener}"/>
+                            </h:commandButton>
+                        </div>
+                    </div>
+                
+                </h:form>
+                
+            
             <br/>
             
         </div>

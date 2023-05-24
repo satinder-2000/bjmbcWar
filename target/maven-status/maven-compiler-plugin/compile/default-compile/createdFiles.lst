@@ -33,7 +33,9 @@ bjm/bc/model/District.class
 bjm/bc/model/ExpenseCategory.class
 bjm/bc/ejb/NewClass.class
 bjm/bc/ejb/RevenueCategoryEjb.class
+bjm/bc/mbean/RevenueAccountManageMBean.class
 bjm/bc/model/AccessType.class
+bjm/bc/mbean/RevenuePartyActionsMBean.class
 bjm/bc/ejb/RevenuePartyEjb.class
 bjm/bc/ejb/RevenueAccountEjb.class
 bjm/bc/mbean/LoginMBean.class
