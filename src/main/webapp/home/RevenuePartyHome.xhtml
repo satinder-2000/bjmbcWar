@@ -9,13 +9,25 @@
             <h2>Revenue Party Home</h2>
             
                 <h6>Select from your Accounts below to pay money in:</h6>
+                <br/>
                 <div class="row">
-                    <div class="col-sm-3"><h:outputLabel value="A/C Name"/></div>
-                    <div class="col-sm-3"><h:outputLabel value="YTD Balance"/></div>
-                    <div class="col-sm-3"><h:outputLabel value="Money In"/></div>
-                    <div class="col-sm-3"><h:outputLabel value="Money Out"/></div>
+                    <div class="col-sm-3"><b><h:outputLabel value="A/C Name"/></b></div>
+                    <div class="col-sm-3"><b><h:outputLabel value="YTD Balance"/></b></div>
+                    <div class="col-sm-3"><b><h:outputLabel value="Money In"/></b></div>
+                    <div class="col-sm-3"><b><h:outputLabel value="Money Out"/></b></div>
                 </div>
                 <h:form>
+                    <div class="row">
+                    <div class="col-sm-3"><h:outputLabel value=""/></div>
+                    <div class="col-sm-6">
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong>Warning!</strong> Money Out limit is YTD Balance.
+                        </div>
+                    </div>
+                    <div class="col-sm-3"><h:outputLabel value=""/></div>
+                    </div>
+                <h:messages id="messages" infoStyle="color:blue;margin:5px;" errorStyle="color:red;margin:5px;"/>
                 <ui:repeat value="#{revenuePartyActionsMBean.revenueParty.revenueAccounts}" var="ra">
                     <div class="row">
                         <div class="col-sm-3"><h:outputLabel value="#{ra.name}"/></div>
@@ -23,11 +35,12 @@
                         <div class="col-sm-3"><h:inputText value="#{ra.moneyIn}" size="5"/></div>
                         <div class="col-sm-3"><h:inputText value="#{ra.moneyOut}" size="5"/></div>
                     </div>
+                    <br/>
                 </ui:repeat>
                     <div class="row">
                         <div class="col-sm-3"><h:outputLabel value=""/></div>
                         <div class="col-sm-3"><h:outputLabel value=""/></div>
-                        <div class="col-sm-3"><h:inputText value="" size="5"/></div>
+                        <div class="col-sm-3"><h:outputLabel value=""/></div>
                         <div class="col-sm-3">
                             
                             <h:commandButton value="Process" styleClass="btn btn-primary">

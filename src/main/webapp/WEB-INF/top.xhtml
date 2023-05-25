@@ -28,25 +28,22 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <c:choose>
-                            <c:when test="#{session.getAttribute('loggedInEmail')!=null}">
-                                <h:outputLink value="#{session.getAttribute('loggedInEmail')}" target="#{loginMBean.redirectToHome()}" styleClass="nav-link"/>
-                                <span><h:outputLink value="Logout" target="#{loginMBean.logout()}" styleClass="nav-link"></h:outputLink></span>
-                            </c:when>
-                            <c:otherwise>
-                                <span><h:outputLink value="#{request.contextPath}/Login.xhtml" styleClass="nav-link">Login</h:outputLink></span>
-                            </c:otherwise>
-                        </c:choose>
-                        <a class="nav-link active" href="#">Active</a>
-                    </li>
+                        <h:outputLink value="#{request.contextPath}/Login.xhtml" styleClass="nav-link">Login</h:outputLink>
+                    </li>    
+                        
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <h:form>
+                            <h:commandLink value="LogOut" action="#{loginMBean.logout()}" styleClass="nav-link"/>
+                        </h:form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link active" href="#">Active</a>
                     </li>
                 </ul>
             </div>

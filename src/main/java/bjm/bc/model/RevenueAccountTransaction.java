@@ -4,15 +4,20 @@
  */
 package bjm.bc.model;
 
+import java.sql.Timestamp;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author user
  */
+@Entity
+@Table(name = "REVENUE_ACCOUNT_TRANSACTION")
 public class RevenueAccountTransaction {
     
     @Id
@@ -26,9 +31,11 @@ public class RevenueAccountTransaction {
     @Column(name = "YEAR")
     private int year;
     @Column(name = "YTD_BALANCE")
-    private int ytdBalance;
+    private double ytdBalance;
     @Column(name = "REVENUE_ACCOUNT_ID")
     private int revenueAccountId;
+    @Column(name = "CREATED_ON")
+    private Timestamp createdOn;
 
     public int getId() {
         return id;
@@ -62,11 +69,11 @@ public class RevenueAccountTransaction {
         this.year = year;
     }
 
-    public int getYtdBalance() {
+    public double getYtdBalance() {
         return ytdBalance;
     }
 
-    public void setYtdBalance(int ytdBalance) {
+    public void setYtdBalance(double ytdBalance) {
         this.ytdBalance = ytdBalance;
     }
 
@@ -76,6 +83,14 @@ public class RevenueAccountTransaction {
 
     public void setRevenueAccountId(int revenueAccountId) {
         this.revenueAccountId = revenueAccountId;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
     }
     
     
