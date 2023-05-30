@@ -60,13 +60,13 @@ public class LoginMBean implements Serializable {
                 AccessType accessType= AccessType.valueOf(access.getAccessType());
                 switch (accessType){
                     case REVENUE_PARTY:
-                        toReturn = "home/RevenuePartyHome";
+                        toReturn = "home/RevenuePartyHome?faces-redirect=true";
                         break;
                     case EXPENSE_PARTY:
-                        toReturn = "home/ExpensePartyHome";
+                        toReturn = "home/ExpensePartyHome?faces-redirect=true";
                         break;
                     default:
-                        toReturn = "AccessNotFound";
+                        toReturn = "AccessNotFound?faces-redirect=true";
                         break;
                     
                 }
@@ -80,15 +80,7 @@ public class LoginMBean implements Serializable {
         } 
     }
     
-    public String logout(){
-        HttpServletRequest request=(HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpSession session=request.getSession();
-        Access access=(Access) session.getAttribute(BJMConstants.ACCESS);
-        session.removeAttribute(BJMConstants.ACCESS);
-        session.removeAttribute(BJMConstants.LOGGED_IN_EMAIL);
-        session.invalidate();
-        return "index";
-    }
+    
     
     public String redirectToHome(){
         return null;

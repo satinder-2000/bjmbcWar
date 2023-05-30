@@ -64,6 +64,7 @@ public class AccessEjb implements AccessEjbLocal {
     @Override
     public Access updateAccess(Access access) {
         access = em.merge(access);
+        em.flush();
         LOGGER.info(String.format("Access record updated with ID: {1}"+access.getId()));
         return access;
     }

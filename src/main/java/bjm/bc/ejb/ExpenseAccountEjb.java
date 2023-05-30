@@ -5,6 +5,7 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.ExpenseAccount;
+import bjm.bc.model.ExpenseAccountTransaction;
 import bjm.bc.model.ExpenseParty;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -48,7 +49,8 @@ public class ExpenseAccountEjb implements ExpenseAccountEjbLocal {
 
     @Override
     public ExpenseAccount saveExpenseAccount(ExpenseAccount expenseAccount) {
-        em.persist(expenseAccount);
+        em.merge(expenseAccount);
+        em.flush();
         LOGGER.info("ExpenseAccount record saved with ID: "+expenseAccount.getId());
         return expenseAccount;
     }
@@ -76,6 +78,14 @@ public class ExpenseAccountEjb implements ExpenseAccountEjbLocal {
             }
         }*/
         em.persist(eA);
+        return true;
+    }
+
+    @Override
+    public boolean createMoneyOutExpenseAccount(ExpenseAccountTransaction expenseAccountTransaction) {
+        em.persist(expenseAccountTransaction);
+        em.flush();
+        LOGGER.info(String.format("ExpenseAccountTransaction record saved with ID: %d",+expenseAccountTransaction.getId()));
         return true;
     }
     

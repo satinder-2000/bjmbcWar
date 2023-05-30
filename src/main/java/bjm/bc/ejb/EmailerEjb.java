@@ -59,6 +59,7 @@ public class EmailerEjb implements EmailerEjbLocal {
             multipart.addBodyPart(htmlPart);
             mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(rp.getEmail()));
             mimeMessage.setContent(multipart);
+            mimeMessage.setSubject("Revenue Party Registration");
             Transport.send(mimeMessage);
             LOGGER.info("Sent message successfully....");
         } catch (MessagingException ex) {
@@ -83,6 +84,7 @@ public class EmailerEjb implements EmailerEjbLocal {
             multipart.addBodyPart(htmlPart);
             mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(ep.getEmail()));
             mimeMessage.setContent(multipart);
+            mimeMessage.setSubject("Expense Party Registration");
             Transport.send(mimeMessage);
             LOGGER.info("Sent message successfully....");
         } catch (MessagingException ex) {

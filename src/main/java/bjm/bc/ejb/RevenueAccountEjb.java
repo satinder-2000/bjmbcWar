@@ -6,11 +6,13 @@ package bjm.bc.ejb;
 
 import bjm.bc.model.RevenueAccount;
 import bjm.bc.model.RevenueAccountTransaction;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.logging.Logger;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -67,6 +69,23 @@ public class RevenueAccountEjb implements RevenueAccountEjbLocal {
         em.flush();
         LOGGER.info(String.format("RevenueAccountTransaction record saved with ID: %d",+revenueAccountTransaction.getId()));
         return true;
+    }
+
+    @Override
+    public boolean createMoneyOutRevenueAccount(RevenueAccountTransaction revenueAccountTransaction) {
+        em.persist(revenueAccountTransaction);
+        em.flush();
+        LOGGER.info(String.format("RevenueAccountTransaction record saved with ID: %d",+revenueAccountTransaction.getId()));
+        return true;
+    }
+
+    @Override
+    public List<RevenueAccountTransaction> getRevenueAccountTransactions(int accountId, int year) {
+        TypedQuery<RevenueAccountTransaction> tQ =em.createQuery("select rat from RevenueAccountTransaction rat where rat.revenueAccountId=?1 and rat.year=?2", RevenueAccountTransaction.class);
+        tQ.setParameter(1, accountId);
+        tQ.setParameter(2, year);
+        List<RevenueAccountTransaction> revAcctTxs= tQ.getResultList();
+        return revAcctTxs;
     }
 
 }

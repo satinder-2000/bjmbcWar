@@ -4,6 +4,7 @@
  */
 package bjm.bc.model;
 
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,9 +31,11 @@ public class ExpenseAccountTransaction {
     @Column(name = "YEAR")
     private int year;
     @Column(name = "YTD_BALANCE")
-    private int ytdBalance;
+    private double ytdBalance;
     @Column(name = "EXPENSE_ACCOUNT_ID")
     private int expenseAccountId;
+    @Column(name = "CREATED_ON")
+    private Timestamp createdOn;
 
     public int getId() {
         return id;
@@ -66,13 +69,15 @@ public class ExpenseAccountTransaction {
         this.year = year;
     }
 
-    public int getYtdBalance() {
+    public double getYtdBalance() {
         return ytdBalance;
     }
 
-    public void setYtdBalance(int ytdBalance) {
+    public void setYtdBalance(double ytdBalance) {
         this.ytdBalance = ytdBalance;
     }
+
+    
 
     public int getExpenseAccountId() {
         return expenseAccountId;
@@ -81,8 +86,12 @@ public class ExpenseAccountTransaction {
     public void setExpenseAccountId(int expenseAccountId) {
         this.expenseAccountId = expenseAccountId;
     }
-    
-    
-    
-    
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
+    }
 }

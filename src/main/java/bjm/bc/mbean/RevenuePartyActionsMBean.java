@@ -76,6 +76,18 @@ public class RevenuePartyActionsMBean implements Serializable {
                 //perform check first - money should be available in the account.
                 if (ra.getMoneyOut() > ra.getYtdBalance()){
                     FacesContext.getCurrentInstance().addMessage("*", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Withdrawal exceeds the available funds","Withdrawal exceeds the available funds"));
+                }else{
+                    RevenueAccountTransaction rat = new RevenueAccountTransaction();
+                    rat.setMoneyOut(ra.getMoneyOut());
+                    rat.setYtdBalance(rat.getYtdBalance()-ra.getMoneyOut());
+                    ra.setYtdBalance(ra.getYtdBalance()-ra.getMoneyOut());
+                    rat.setYear(FinancialYear.financialYear());
+                    rat.setCreatedOn(new Timestamp(System.currentTimeMillis()));
+                    rat.setRevenueAccountId(ra.getId());
+                    ra.setMoneyOut(0);
+                    revenueAccountEjbLocal.createMoneyOutRevenueAccount(rat);
+                    revenueAccountEjbLocal.saveRevenueAccount(ra);
+                    
                 }
             }
         }

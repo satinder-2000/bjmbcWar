@@ -5,6 +5,7 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.ExpenseAccount;
+import bjm.bc.model.ExpenseAccountTransaction;
 import javax.ejb.Local;
 
 /**
@@ -19,5 +20,6 @@ public interface ExpenseAccountEjbLocal {
     public ExpenseAccount saveExpenseAccount(ExpenseAccount expenseAccount);
     public boolean addToBalanceExpenseAccount(int accountId, double balanceToAdd);
     public boolean withdrawFromBalanceExpenseAccount(int accountId, double balanceToWithdraw);
+    public boolean createMoneyOutExpenseAccount(ExpenseAccountTransaction expenseAccountTransaction);
     
 }

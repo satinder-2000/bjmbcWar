@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity(name = "EXPENSE_ACCOUNT")
 public class ExpenseAccount {
@@ -26,6 +27,12 @@ public class ExpenseAccount {
     private int expensePartyId;
     @Column(name = "CREATED_ON")
     private Timestamp createdOn;
+    @Column(name = "YTD_BALANCE")
+    private double ytdBalance;
+    @Transient
+    private double moneyIn;
+    @Transient
+    private double moneyOut;
 
     public int getId() {
         return id;
@@ -75,6 +82,31 @@ public class ExpenseAccount {
         this.createdOn = createdOn;
     }
 
+    public double getYtdBalance() {
+        return ytdBalance;
+    }
+
+    public void setYtdBalance(double ytdBalance) {
+        this.ytdBalance = ytdBalance;
+    }
+
+    public double getMoneyIn() {
+        return moneyIn;
+    }
+
+    public void setMoneyIn(double moneyIn) {
+        this.moneyIn = moneyIn;
+    }
+
+    public double getMoneyOut() {
+        return moneyOut;
+    }
+
+    public void setMoneyOut(double moneyOut) {
+        this.moneyOut = moneyOut;
+    }
+
+    
     
 
 }

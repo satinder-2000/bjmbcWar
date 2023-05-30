@@ -10,32 +10,52 @@
             <div class="container-fluid">
                 <ul class="navbar-nav">
                     <li>
-                    <h:outputLink target="#{request.contextPath}">
-                    <h:graphicImage name="images/Logo40White.png"/>
-                    </h:outputLink>
+                        <h:outputLink target="#{request.contextPath}">
+                            <h:graphicImage name="images/Logo40White.png"/>
+                        </h:outputLink>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Register</a>
                         <ul class="dropdown-menu">
                             <li>
                                 <h:form>
-                                <h:commandLink  value="Revenue Party"  action="RevenuePartyRegister" styleClass="nav-link"/>
+                                    <h:commandLink  value="Revenue Party"  action="RevenuePartyRegister" styleClass="nav-link"/>
                                 </h:form>
                             </li>
                             <li><h:form>
-                                <h:commandLink  value="Expense Party"  action="ExpensePartyRegister" styleClass="nav-link"/>
+                                    <h:commandLink  value="Expense Party"  action="ExpensePartyRegister" styleClass="nav-link"/>
                                 </h:form></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <h:outputLink value="#{request.contextPath}/Login.xhtml" styleClass="nav-link">Login</h:outputLink>
+                    <c:choose>
+                    <c:when test="#{session.getAttribute('access')==null}">
+                        <li class="active">
+                            <h:form>
+                                <h:commandLink action="#{homeMBean.redirectToHome()}" styleClass="nav-link">
+                                    <h:graphicImage library="images" name="house25.png"/>
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li class="active">
+                            <span><h:outputLink value="#{request.contextPath}/login.xhtml" styleClass="nav-link">Log In</h:outputLink></span>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="active">
+                            <h:form>
+                                <h:commandLink action="#{homeMBean.redirectToHome()}" styleClass="nav-link">
+                                    <h:graphicImage library="images" name="house25.png"/>
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li class="active">
+                            <h:form><h:commandLink value="Log Out" action="#{logoutMBean.logout()}" styleClass="nav-link"/></h:form>
+                        </li>
+                    </c:otherwise>
+                    </c:choose>
                     </li>    
-                        
-                    <li class="nav-item">
-                        <h:form>
-                            <h:commandLink value="LogOut" action="#{loginMBean.logout()}" styleClass="nav-link"/>
-                        </h:form>
-                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
@@ -43,7 +63,7 @@
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
+                        <a class="nav-link active" href="#">Active</a>
                     </li>
                 </ul>
             </div>
