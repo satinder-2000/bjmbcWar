@@ -59,6 +59,18 @@ public class ExpensePartyActionsMBean implements Serializable{
     public void ajaxTypeListener(AjaxBehaviorEvent event){
         List<ExpenseAccount> partyAccounts=expenseParty.getExpenseAccounts();
         for (ExpenseAccount ea: partyAccounts){
+            if (ea.getMoneyIn() > 0){
+                ExpenseAccountTransaction eat = new ExpenseAccountTransaction();
+                eat.setMoneyIn(ea.getMoneyIn());
+                eat.setYtdBalance(ea.getYtdBalance()+ea.getMoneyIn());
+                ea.setYtdBalance(ea.getYtdBalance()+ea.getMoneyIn());
+                eat.setYear(FinancialYear.financialYear());
+                eat.setCreatedOn(new Timestamp(System.currentTimeMillis()));
+                eat.setExpenseAccountId(ea.getId());
+                ea.setMoneyIn(0);
+                expenseAccountEjbLocal.createMoneyInRevenueAccount(eat);
+                expenseAccountEjbLocal.saveExpenseAccount(ea);
+            }else 
             if (ea.getMoneyOut() > ea.getYtdBalance()){
                 FacesContext.getCurrentInstance().addMessage("*", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Withdrawal exceeds the available funds","Withdrawal exceeds the available funds"));
             }else{

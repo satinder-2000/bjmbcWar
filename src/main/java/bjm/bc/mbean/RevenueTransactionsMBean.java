@@ -1,19 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package bjm.bc.mbean;
 
 import bjm.bc.ejb.RevenueAccountEjbLocal;
 import bjm.bc.model.RevenueAccount;
 import bjm.bc.model.RevenueAccountTransaction;
 import bjm.bc.util.FinancialYear;
-import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +19,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author user
  */
 @Named(value = "revenueTransactionsMBean")
-@ViewScoped
-public class RevenueTransactionsMBean implements Serializable {
+@RequestScoped
+public class RevenueTransactionsMBean {
     
     private static Logger LOGGER=Logger.getLogger(RevenueTransactionsMBean.class.getName());
     
@@ -35,16 +31,25 @@ public class RevenueTransactionsMBean implements Serializable {
     
     private List<RevenueAccountTransaction> revenueAccountTransactions;
     
+    //@ManagedProperty(value = "#{param.acctId}")
+    int accountId;
+    
     private int year;
     
     @PostConstruct
     public void init(){
         HttpServletRequest request=(HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        int accountId=Integer.parseInt(request.getParameter("acctId"));
+        accountId=Integer.parseInt(request.getParameter("acctId"));
         revenueAccount = revenueAccountEjbLocal.findById(accountId);
         year=FinancialYear.financialYear();
         revenueAccountTransactions=revenueAccountEjbLocal.getRevenueAccountTransactions(accountId, year );
         LOGGER.info(String.format("RevenueAccount %d loaded along with %d RevenueAccountTransactions.", accountId,revenueAccountTransactions.size()));
+        
+        
+    }
+    
+    public String viewTransactions(){
+        return "RevenueAccountsTransactions";
     }
 
     public RevenueAccount getRevenueAccount() {
@@ -63,6 +68,14 @@ public class RevenueTransactionsMBean implements Serializable {
         this.revenueAccountTransactions = revenueAccountTransactions;
     }
 
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+    
     public int getYear() {
         return year;
     }

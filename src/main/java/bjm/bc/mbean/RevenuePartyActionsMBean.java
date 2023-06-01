@@ -93,7 +93,7 @@ public class RevenuePartyActionsMBean implements Serializable {
         }
         
     }
-
+    
     public RevenueParty getRevenueParty() {
         return revenueParty;
     }

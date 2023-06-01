@@ -7,6 +7,7 @@ package bjm.bc.ejb;
 import bjm.bc.model.ExpenseAccount;
 import bjm.bc.model.ExpenseAccountTransaction;
 import bjm.bc.model.ExpenseParty;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -87,6 +88,23 @@ public class ExpenseAccountEjb implements ExpenseAccountEjbLocal {
         em.flush();
         LOGGER.info(String.format("ExpenseAccountTransaction record saved with ID: %d",+expenseAccountTransaction.getId()));
         return true;
+    }
+
+    @Override
+    public boolean createMoneyInRevenueAccount(ExpenseAccountTransaction expenseAccountTransaction) {
+        em.persist(expenseAccountTransaction);
+        em.flush();
+        LOGGER.info(String.format("ExpenseAccountTransaction record saved with ID: %d",+expenseAccountTransaction.getId()));
+        return true;
+    }
+
+    @Override
+    public List<ExpenseAccountTransaction> getExpenseAccountTransactions(int accountId, int year) {
+        TypedQuery<ExpenseAccountTransaction> tQ =em.createQuery("select eat from ExpenseAccountTransaction eat where eat.expenseAccountId=?1 and eat.year=?2", ExpenseAccountTransaction.class);
+        tQ.setParameter(1, accountId);
+        tQ.setParameter(2, year);
+        List<ExpenseAccountTransaction> expAcctTxs= tQ.getResultList();
+        return expAcctTxs;
     }
     
     

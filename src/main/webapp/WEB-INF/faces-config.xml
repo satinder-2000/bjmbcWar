@@ -23,5 +23,23 @@
               xmlns="https://jakarta.ee/xml/ns/jakartaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
-    
+    <navigation-rule>
+        <from-view-id>/home/RevenuePartyHome.xhtml</from-view-id>
+        <navigation-case>
+            <!-- from-action>#{revenueTransactionsMBean.viewTransactions()}</from-action -->
+            <from-outcome>/bjmbcWar/trans/RevenueAccountTransactions</from-outcome>
+            <to-view-id>/trans/RevenueAccountTransactions.xhtml?faces-redirect=true</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/home/ExpensePartyHome.xhtml</from-view-id>
+        <navigation-case>
+            <!-- from-action>#{revenueTransactionsMBean.viewTransactions()}</from-action -->
+            <from-outcome>/bjmbcWar/trans/ExpenseAccountTransactions</from-outcome>
+            <to-view-id>/trans/ExpenseAccountTransactions.xhtml?faces-redirect=true</to-view-id>
+        </navigation-case>
+    </navigation-rule>        
+
+
+
 </faces-config>

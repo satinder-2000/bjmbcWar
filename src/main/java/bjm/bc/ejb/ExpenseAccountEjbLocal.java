@@ -6,6 +6,7 @@ package bjm.bc.ejb;
 
 import bjm.bc.model.ExpenseAccount;
 import bjm.bc.model.ExpenseAccountTransaction;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -21,5 +22,9 @@ public interface ExpenseAccountEjbLocal {
     public boolean addToBalanceExpenseAccount(int accountId, double balanceToAdd);
     public boolean withdrawFromBalanceExpenseAccount(int accountId, double balanceToWithdraw);
     public boolean createMoneyOutExpenseAccount(ExpenseAccountTransaction expenseAccountTransaction);
+
+    public boolean createMoneyInRevenueAccount(ExpenseAccountTransaction eat);
+
+    public List<ExpenseAccountTransaction> getExpenseAccountTransactions(int accountId, int year);
     
 }

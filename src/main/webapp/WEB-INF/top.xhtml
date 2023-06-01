@@ -15,17 +15,17 @@
                         </h:outputLink>
                     </li>
                     <li class="nav-item">
+                        <h:form>
                         <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Register</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <h:form>
-                                    <h:commandLink  value="Revenue Party"  action="RevenuePartyRegister" styleClass="nav-link"/>
-                                </h:form>
+                               <h:commandLink  value="Revenue Party"  action="RevenuePartyRegister" styleClass="dropdown-item"/>
                             </li>
-                            <li><h:form>
-                                    <h:commandLink  value="Expense Party"  action="ExpensePartyRegister" styleClass="nav-link"/>
-                                </h:form></li>
+                            <li>
+                               <h:commandLink  value="Expense Party"  action="ExpensePartyRegister" styleClass="dropdown-item"/>
+                            </li>
                         </ul>
+                        </h:form>
                     </li>
                     <li class="nav-item">
                     <c:choose>
@@ -50,7 +50,7 @@
                             </h:form>
                         </li>
                         <li class="active">
-                            <h:form><h:commandLink value="Log Out" action="#{logoutMBean.logout()}" styleClass="nav-link"/></h:form>
+                            <h:form prependId="false"><h:commandLink value="Log Out" action="#{logoutMBean.logout()}" styleClass="nav-link"/></h:form>
                         </li>
                     </c:otherwise>
                     </c:choose>

@@ -4,16 +4,16 @@
 
     <ui:define name="content">
         <div class="container col-sm-8">
-            <h1>Revenue Account Transactions</h1>
+            <h1>Expense Account Transactions</h1>
             <div class="row">
-                <h2>Revenue Account Details</h2>
-                <p>Account Name: #{revenueTransactionsMBean.revenueAccount.name}</p>
-                <p>Year: #{revenueTransactionsMBean.year}</p>
+                <h2>Expense Account Details</h2>
+                <p>Account Name: #{expenseTransactionsMBean.expenseAccount.name}</p>
+                <p>Year: #{expenseTransactionsMBean.year}</p>
             </div>
             <br/>
             <div class="row">
                 <h2>Transactions</h2>
-                <p>Account Name: #{revenueTransactionsMBean.revenueAccount.name}</p>
+                <p>Account Name: #{expenseTransactionsMBean.expenseAccount.name}</p>
                 <table class="table table-striped">
                     <thead>
                         <th>Dated</th>
@@ -22,18 +22,17 @@
                         <th>Balance</th>
                     </thead>
                     <tbody>
-                        <ui:repeat value="#{revenueTransactionsMBean.revenueAccountTransactions}" var="rvTx">
+                        <ui:repeat value="#{expenseTransactionsMBean.expenseAccountTransactions}" var="exTx">
                             <tr>
-                                <td>#{rvTx.createdOn}</td>
-                                <td>#{rvTx.moneyIn}</td>
-                                <td>#{rvTx.moneyOut}</td>
-                                <td>#{rvTx.ytdBalance}</td>
+                                <td>#{exTx.createdOn}</td>
+                                <td>#{exTx.moneyIn}</td>
+                                <td>#{exTx.moneyOut}</td>
+                                <td>#{exTx.ytdBalance}</td>
                             </tr>
                         </ui:repeat>
                     </tbody>
                 </table>
             </div>
-
         </div>
     </ui:define>
 

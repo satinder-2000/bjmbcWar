@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/bjmbcTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <div class="container col-sm-8">
+            <h:form id="one">
+              <h2>Create Admin</h2>
+              <h:messages/>
+              <div class="row">
+                    <div class="col-sm-6">
+                        <h:outputLabel value="Email:"/>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText value="#{adminMBean.admin.email}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h:outputLabel value="Password:"/>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:outputText value="#{adminMBean.admin.password}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h:outputLabel value=""/>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:commandButton action="#{adminMBean.createAdmin()}" value="Create Admin" styleClass="btn btn-primary"/>
+                    </div>
+                </div>
+            </h:form>
+            <br/>
+            <br/>
+            <h:form id="two">
+                <h2>Change Admin Password</h2>
+                <h:messages/>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h:outputLabel value="New Password:"/>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:inputSecret value="#{adminMBean.password}" styleClass="form-control"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h:outputLabel value=""/>
+                    </div>
+                    <div class="col-sm-6">
+                        <h:commandButton action="#{adminMBean.changePassword()}" value="Change PasswordAdmin" styleClass="btn btn-primary"/>
+                    </div>
+                </div>
+                
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

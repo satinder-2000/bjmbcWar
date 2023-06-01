@@ -35,6 +35,15 @@
                         <div class="col-sm-3"><h:inputText value="#{ra.moneyIn}" size="5"/></div>
                         <div class="col-sm-3"><h:inputText value="#{ra.moneyOut}" size="5"/></div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-3"><h:outputLabel value=""/></div>
+                        <div class="col-sm-3"><h:outputLabel value=""/></div>
+                        <div class="col-sm-6">
+                            <h:link value="View all Transactions" outcome="#{request.contextPath}/trans/RevenueAccountTransactions">
+                                <f:param name="acctId" value="#{ra.id}"/>
+                            </h:link>
+                        </div>
+                    </div>
                     <br/>
                 </ui:repeat>
                     <div class="row">
