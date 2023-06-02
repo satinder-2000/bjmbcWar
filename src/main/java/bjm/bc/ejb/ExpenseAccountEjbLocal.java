@@ -22,9 +22,8 @@ public interface ExpenseAccountEjbLocal {
     public boolean addToBalanceExpenseAccount(int accountId, double balanceToAdd);
     public boolean withdrawFromBalanceExpenseAccount(int accountId, double balanceToWithdraw);
     public boolean createMoneyOutExpenseAccount(ExpenseAccountTransaction expenseAccountTransaction);
-
     public boolean createMoneyInRevenueAccount(ExpenseAccountTransaction eat);
-
     public List<ExpenseAccountTransaction> getExpenseAccountTransactions(int accountId, int year);
+    public List<ExpenseAccount> getAll(int year);
     
 }

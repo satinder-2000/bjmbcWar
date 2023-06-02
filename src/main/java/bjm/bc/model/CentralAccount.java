@@ -27,10 +27,7 @@ public class CentralAccount {
     private String expenseAccountHash;
     @Column(name = "TRANSACTION_DATE")
     private LocalDateTime transactionDate;
-    @Column(name = "REVENUE_CATEGORY")
-    private String revenueCategory;
-    @Column(name = "EXPENSE_CATEGORY")
-    private String expenseCategory;
+    
 
     public int getId() {
         return id;
@@ -78,22 +75,6 @@ public class CentralAccount {
 
     public void setTransactionDate(LocalDateTime transactionDate) {
         this.transactionDate = transactionDate;
-    }
-
-    public String getRevenueCategory() {
-        return revenueCategory;
-    }
-
-    public void setRevenueCategory(String revenueCategory) {
-        this.revenueCategory = revenueCategory;
-    }
-
-    public String getExpenseCategory() {
-        return expenseCategory;
-    }
-
-    public void setExpenseCategory(String expenseCategory) {
-        this.expenseCategory = expenseCategory;
     }
 
     public String getAccountName() {

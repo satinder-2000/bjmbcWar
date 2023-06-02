@@ -15,4 +15,5 @@ public interface RevenueAccountEjbLocal {
     public boolean createMoneyInRevenueAccount(RevenueAccountTransaction revenueAccountTransaction);
     public boolean createMoneyOutRevenueAccount(RevenueAccountTransaction revenueAccountTransaction);
     public List<RevenueAccountTransaction> getRevenueAccountTransactions(int accountId, int year);
+    public List<RevenueAccount> getAll(int year);
 }

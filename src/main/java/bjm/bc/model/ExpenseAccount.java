@@ -27,6 +27,8 @@ public class ExpenseAccount {
     private int expensePartyId;
     @Column(name = "CREATED_ON")
     private Timestamp createdOn;
+    @Column(name = "YEAR")
+    private int year;
     @Column(name = "YTD_BALANCE")
     private double ytdBalance;
     @Transient
@@ -106,7 +108,12 @@ public class ExpenseAccount {
         this.moneyOut = moneyOut;
     }
 
-    
-    
+    public int getYear() {
+        return year;
+    }
 
-}
+    public void setYear(int year) {
+        this.year = year;
+    }
+    
+ }

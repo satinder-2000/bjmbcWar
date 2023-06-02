@@ -106,6 +106,16 @@ public class ExpenseAccountEjb implements ExpenseAccountEjbLocal {
         List<ExpenseAccountTransaction> expAcctTxs= tQ.getResultList();
         return expAcctTxs;
     }
+
+    @Override
+    public List<ExpenseAccount> getAll(int year) {
+        TypedQuery<ExpenseAccount> tQ =em.createQuery("select ea from ExpenseAccount ea where ea.year=?1", ExpenseAccount.class);
+        tQ.setParameter(1, year);
+        List<ExpenseAccount> expAccts = tQ.getResultList();
+        LOGGER.info(String.format("ExpenseAccount %d extracted for year %d",expAccts.size(),year));
+        return expAccts; 
+        
+    }
     
     
     

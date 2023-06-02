@@ -88,4 +88,14 @@ public class RevenueAccountEjb implements RevenueAccountEjbLocal {
         return revAcctTxs;
     }
 
+    @Override
+    public List<RevenueAccount> getAll(int year) {
+        TypedQuery<RevenueAccount> tQ =em.createQuery("select ra from RevenueAccount ra where ra.year=?1", RevenueAccount.class);
+        tQ.setParameter(1, year);
+        List<RevenueAccount> revAccts = tQ.getResultList();
+        LOGGER.info(String.format("RevenueAccount %d extracted for year %d",revAccts.size(),year));
+        return revAccts; 
+        
+    }
+
 }
