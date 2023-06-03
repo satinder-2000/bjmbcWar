@@ -18,5 +18,7 @@ public interface RevenueCategoryEjbLocal {
     public List<RevenueCategory> getRevenueCategoriesForYear(int year);
 
     public RevenueCategory findByNameAndYear(String revCat, int year);
+
+    public RevenueCategory findById(Integer revCatId);
     
 }

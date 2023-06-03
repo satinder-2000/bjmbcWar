@@ -49,7 +49,7 @@ public class RevenueAccountEjb implements RevenueAccountEjbLocal {
     public RevenueAccount saveRevenueAccount(RevenueAccount revenueAccount) {
         em.merge(revenueAccount);
         em.flush();
-        LOGGER.info("ExpenseAccount record saved with ID: "+revenueAccount.getId());
+        LOGGER.info("RevenueAccount record saved with ID: "+revenueAccount.getId());
         return revenueAccount;
     }
 
@@ -96,6 +96,15 @@ public class RevenueAccountEjb implements RevenueAccountEjbLocal {
         LOGGER.info(String.format("RevenueAccount %d extracted for year %d",revAccts.size(),year));
         return revAccts; 
         
+    }
+
+    @Override
+    public List<RevenueAccount> getAllByCategoryAndYear(String revenueCategory, int year) {
+        TypedQuery<RevenueAccount> tQ =em.createQuery("select ra from RevenueAccount ra join RevenueCategory rc where ra.revenueCategoryId=rc.id and rc.revenueCategory=?1 and ra.year=?2", RevenueAccount.class);
+        tQ.setParameter(1, revenueCategory);
+        tQ.setParameter(2, year);
+        List<RevenueAccount> revAccts= tQ.getResultList();
+        return revAccts;
     }
 
 }

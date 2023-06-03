@@ -5,6 +5,7 @@
 package bjm.bc.mbean;
 
 import bjm.bc.ejb.AdminEjbLocal;
+import bjm.bc.ejb.AllocationsEjbLocal;
 import bjm.bc.model.Admin;
 import bjm.bc.util.PasswordUtil;
 import java.io.Serializable;
@@ -28,6 +29,9 @@ public class AdminMBean implements Serializable {
     
     private Admin admin;
     private String password="";
+    
+    @Inject
+    private AllocationsEjbLocal allocationsEjbLocal;
     
     @PostConstruct
     public void init(){
@@ -55,6 +59,11 @@ public class AdminMBean implements Serializable {
         admin.setPassword(PasswordUtil.generateSecurePassword(password, "admin@bjmbc.net"));
         admin = adminEjbLocal.changeAdminPassword(admin);
         FacesContext.getCurrentInstance().addMessage("firstname", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Success")); 
+        return null;
+    }
+    
+    public String performAllocations(){
+        allocationsEjbLocal.performAllocations("2023 allocations");
         return null;
     }
 

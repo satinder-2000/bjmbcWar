@@ -25,5 +25,6 @@ public interface ExpenseAccountEjbLocal {
     public boolean createMoneyInRevenueAccount(ExpenseAccountTransaction eat);
     public List<ExpenseAccountTransaction> getExpenseAccountTransactions(int accountId, int year);
     public List<ExpenseAccount> getAll(int year);
+    public List<ExpenseAccount> getAllByCategoryAndYear(String expenseCategory, int year);
     
 }

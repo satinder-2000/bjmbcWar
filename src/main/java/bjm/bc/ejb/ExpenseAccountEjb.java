@@ -116,6 +116,15 @@ public class ExpenseAccountEjb implements ExpenseAccountEjbLocal {
         return expAccts; 
         
     }
+
+    @Override
+    public List<ExpenseAccount> getAllByCategoryAndYear(String expenseCategory, int year) {
+        TypedQuery<ExpenseAccount> tQ =em.createQuery("select ea from ExpenseAccount ea join ExpenseCategory ec where ea.expenseCategoryId=ec.id and rc.expenseCategory=?1 and ea.year=?2", ExpenseAccount.class);
+        tQ.setParameter(1, expenseCategory);
+        tQ.setParameter(2, year);
+        List<ExpenseAccount> expAccts= tQ.getResultList();
+        return expAccts;
+    }
     
     
     

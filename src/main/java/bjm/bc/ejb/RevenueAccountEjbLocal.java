@@ -16,4 +16,5 @@ public interface RevenueAccountEjbLocal {
     public boolean createMoneyOutRevenueAccount(RevenueAccountTransaction revenueAccountTransaction);
     public List<RevenueAccountTransaction> getRevenueAccountTransactions(int accountId, int year);
     public List<RevenueAccount> getAll(int year);
+    public List<RevenueAccount> getAllByCategoryAndYear(String revenueCategory, int year);
 }

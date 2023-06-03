@@ -40,4 +40,12 @@ public class RevenueCategoryEjb implements RevenueCategoryEjbLocal {
         tQ.setParameter(2, year);
         return tQ.getSingleResult();
     }
+
+    @Override
+    public RevenueCategory findById(Integer revCatId) {
+        TypedQuery<RevenueCategory> tQ = em.createQuery("select rc from RevenueCategory rc where rc.id=?1", RevenueCategory.class);
+        tQ.setParameter(1, revCatId);
+        return tQ.getSingleResult();
+        
+    }
 }
