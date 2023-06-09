@@ -32,10 +32,10 @@ public class RevenueAccountTransfer {
     private int centralAccountId;
     
     @Column(name = "MONEY_IN")
-    private double moneyIn;
+    private String moneyIn;
     
     @Column(name = "MONEY_OUT")
-    private double moneyOut;
+    private String moneyOut;
     
     @Column(name = "TRANSACTION_TIME")
     private LocalDateTime transactionTime;
@@ -64,21 +64,23 @@ public class RevenueAccountTransfer {
         this.centralAccountId = centralAccountId;
     }
 
-    public double getMoneyIn() {
+    public String getMoneyIn() {
         return moneyIn;
     }
 
-    public void setMoneyIn(double moneyIn) {
+    public void setMoneyIn(String moneyIn) {
         this.moneyIn = moneyIn;
     }
 
-    public double getMoneyOut() {
+    public String getMoneyOut() {
         return moneyOut;
     }
 
-    public void setMoneyOut(double moneyOut) {
+    public void setMoneyOut(String moneyOut) {
         this.moneyOut = moneyOut;
     }
+
+    
 
     public LocalDateTime getTransactionTime() {
         return transactionTime;

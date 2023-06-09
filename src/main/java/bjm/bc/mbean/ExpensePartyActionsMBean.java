@@ -14,6 +14,7 @@ import bjm.bc.model.ExpenseParty;
 import bjm.bc.util.BJMConstants;
 import bjm.bc.util.FinancialYear;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Logger;
@@ -59,7 +60,7 @@ public class ExpensePartyActionsMBean implements Serializable{
     public void ajaxTypeListener(AjaxBehaviorEvent event){
         List<ExpenseAccount> partyAccounts=expenseParty.getExpenseAccounts();
         for (ExpenseAccount ea: partyAccounts){
-            if (ea.getMoneyIn() > 0){
+            if (new BigDecimal(ea.getMoneyIn()).compareTo(BigDecimal.ZERO) > 1){
                 ExpenseAccountTransaction eat = new ExpenseAccountTransaction();
                 eat.setMoneyIn(ea.getMoneyIn());
                 eat.setYtdBalance(ea.getYtdBalance()+ea.getMoneyIn());
@@ -67,21 +68,21 @@ public class ExpensePartyActionsMBean implements Serializable{
                 eat.setYear(FinancialYear.financialYear());
                 eat.setCreatedOn(new Timestamp(System.currentTimeMillis()));
                 eat.setExpenseAccountId(ea.getId());
-                ea.setMoneyIn(0);
+                ea.setMoneyIn("0");
                 expenseAccountEjbLocal.createMoneyInRevenueAccount(eat);
                 expenseAccountEjbLocal.saveExpenseAccount(ea);
             }else 
-            if (ea.getMoneyOut() > ea.getYtdBalance()){
+            if (new BigDecimal(ea.getMoneyOut()).compareTo(new BigDecimal(ea.getYtdBalance())) > 1){
                 FacesContext.getCurrentInstance().addMessage("*", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Withdrawal exceeds the available funds","Withdrawal exceeds the available funds"));
             }else{
                 ExpenseAccountTransaction eat=new ExpenseAccountTransaction();
                 eat.setMoneyOut(ea.getMoneyOut());
-                eat.setYtdBalance(ea.getYtdBalance()-ea.getMoneyOut());
-                ea.setYtdBalance(ea.getYtdBalance()-ea.getMoneyOut());
+                eat.setYtdBalance(new BigDecimal(ea.getYtdBalance()).subtract(new BigDecimal(ea.getMoneyOut())).toString());
+                ea.setYtdBalance(new BigDecimal(ea.getYtdBalance()).subtract(new BigDecimal(ea.getMoneyOut())).toString());
                 eat.setYear(FinancialYear.financialYear());
                 eat.setCreatedOn(new Timestamp(System.currentTimeMillis()));
                 eat.setExpenseAccountId(ea.getId());
-                ea.setMoneyOut(0);
+                ea.setMoneyOut("0");
                 expenseAccountEjbLocal.createMoneyOutExpenseAccount(eat);
                 expenseAccountEjbLocal.saveExpenseAccount(ea);
             }

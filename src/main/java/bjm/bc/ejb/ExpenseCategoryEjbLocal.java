@@ -21,4 +21,6 @@ public interface ExpenseCategoryEjbLocal {
     public List<ExpenseCategory> getExpenseCategoriesForYear(int year);
 
     public ExpenseCategory findByNameAndYear(String expCat, int year);
+
+    public ExpenseCategory findById(Integer expCatId);
 }

@@ -28,9 +28,9 @@ public class ExpenseAllocation {
     @Column(name = "CATEGORY")
     private String category;
     @Column(name = "ALLOCATION")
-    private double allocation;
+    private String allocation;
     @Column(name = "PERCENT_ALLOCATION")
-    private double percentAllocation;
+    private String percentAllocation;
 
     public int getId() {
         return id;
@@ -56,22 +56,22 @@ public class ExpenseAllocation {
         this.category = category;
     }
 
-    public double getAllocation() {
+    public String getAllocation() {
         return allocation;
     }
 
-    public void setAllocation(double allocation) {
+    public void setAllocation(String allocation) {
         this.allocation = allocation;
     }
 
-    public double getPercentAllocation() {
+    public String getPercentAllocation() {
         return percentAllocation;
     }
 
-    public void setPercentAllocation(double percentAllocation) {
+    public void setPercentAllocation(String percentAllocation) {
         this.percentAllocation = percentAllocation;
     }
     
     
-    
+
 }

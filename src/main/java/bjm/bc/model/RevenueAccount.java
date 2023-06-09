@@ -32,11 +32,11 @@ public class RevenueAccount {
     @Column(name = "YEAR")
     private int year;
     @Column(name="YTD_BALANCE")
-    private double ytdBalance;
+    private String ytdBalance;
     @Transient
-    private double moneyIn;
+    private String moneyIn;
     @Transient
-    private double moneyOut;
+    private String moneyOut;
 
     public int getId() {
         return id;
@@ -88,29 +88,31 @@ public class RevenueAccount {
         this.createdOn = createdOn;
     }
 
-    public double getYtdBalance() {
+    public String getYtdBalance() {
         return ytdBalance;
     }
 
-    public void setYtdBalance(double ytdBalance) {
+    public void setYtdBalance(String ytdBalance) {
         this.ytdBalance = ytdBalance;
     }
-    
-    public double getMoneyIn() {
+
+    public String getMoneyIn() {
         return moneyIn;
     }
 
-    public void setMoneyIn(double moneyIn) {
+    public void setMoneyIn(String moneyIn) {
         this.moneyIn = moneyIn;
     }
 
-    public double getMoneyOut() {
+    public String getMoneyOut() {
         return moneyOut;
     }
 
-    public void setMoneyOut(double moneyOut) {
+    public void setMoneyOut(String moneyOut) {
         this.moneyOut = moneyOut;
     }
+
+    
 
     public int getYear() {
         return year;

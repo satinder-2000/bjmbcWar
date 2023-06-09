@@ -5,6 +5,7 @@
 package bjm.bc.ejb;
 
 import bjm.bc.model.CentralAccount;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -15,5 +16,7 @@ import javax.ejb.Local;
 public interface CentralAccountEjbLocal {
     
     public CentralAccount createAllocation(CentralAccount centralAccount);
+    public List<CentralAccount> getAllForYear(int year); 
+    public CentralAccount saveAllocation(CentralAccount ca);
     
 }

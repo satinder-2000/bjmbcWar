@@ -1,7 +1,5 @@
 use `bjmbc`;
 
-UPDATE EXPENSE_ACCOUNT SET YTD_BALANCE=1000;
-
 DELETE from EXPENSE_ACCOUNT_TRANSACTION;
 
 alter table EXPENSE_ACCOUNT_TRANSACTION auto_increment = 1;
@@ -31,3 +29,7 @@ DELETE FROM ACCESS;
 alter table ACCESS auto_increment = 1;
 
 delete from REVENUE_PARTY where PASSWORD is NULL;
+
+DELETE from CENTRAL_ACCOUNT;
+
+alter table CENTRAL_ACCOUNT auto_increment = 1;

@@ -14,6 +14,7 @@ import bjm.bc.model.RevenueParty;
 import bjm.bc.util.BJMConstants;
 import bjm.bc.util.FinancialYear;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Logger;
@@ -61,7 +62,7 @@ public class RevenuePartyActionsMBean implements Serializable {
         LOGGER.info("AJAX invoked.");
         List<RevenueAccount> partyAccounts = revenueParty.getRevenueAccounts();
         for (RevenueAccount ra: partyAccounts){
-            if (ra.getMoneyIn() > 0){
+            if (new BigDecimal(ra.getMoneyIn()).compareTo(new BigDecimal("0")) > 1){
                 RevenueAccountTransaction rat = new RevenueAccountTransaction();
                 rat.setMoneyIn(ra.getMoneyIn());
                 rat.setYtdBalance(rat.getYtdBalance()+ra.getMoneyIn());
@@ -69,22 +70,22 @@ public class RevenuePartyActionsMBean implements Serializable {
                 rat.setYear(FinancialYear.financialYear());
                 rat.setCreatedOn(new Timestamp(System.currentTimeMillis()));
                 rat.setRevenueAccountId(ra.getId());
-                ra.setMoneyIn(0);
+                ra.setMoneyIn("0");
                 revenueAccountEjbLocal.createMoneyInRevenueAccount(rat);
                 revenueAccountEjbLocal.saveRevenueAccount(ra);
-            }else if(ra.getMoneyOut()>0){
+            }else if(new BigDecimal(ra.getMoneyOut()).compareTo(new BigDecimal("0")) > 1){
                 //perform check first - money should be available in the account.
-                if (ra.getMoneyOut() > ra.getYtdBalance()){
+                if (new BigDecimal(ra.getMoneyOut()).compareTo(new BigDecimal(ra.getYtdBalance())) > 1){
                     FacesContext.getCurrentInstance().addMessage("*", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Withdrawal exceeds the available funds","Withdrawal exceeds the available funds"));
                 }else{
                     RevenueAccountTransaction rat = new RevenueAccountTransaction();
                     rat.setMoneyOut(ra.getMoneyOut());
-                    rat.setYtdBalance(rat.getYtdBalance()-ra.getMoneyOut());
-                    ra.setYtdBalance(ra.getYtdBalance()-ra.getMoneyOut());
+                    rat.setYtdBalance(new BigDecimal(rat.getYtdBalance()).subtract(new BigDecimal(ra.getMoneyOut())).toString());
+                    ra.setYtdBalance(new BigDecimal(ra.getYtdBalance()).subtract(new BigDecimal(ra.getMoneyOut())).toString());
                     rat.setYear(FinancialYear.financialYear());
                     rat.setCreatedOn(new Timestamp(System.currentTimeMillis()));
                     rat.setRevenueAccountId(ra.getId());
-                    ra.setMoneyOut(0);
+                    ra.setMoneyOut("0");
                     revenueAccountEjbLocal.createMoneyOutRevenueAccount(rat);
                     revenueAccountEjbLocal.saveRevenueAccount(ra);
                     

@@ -25,13 +25,13 @@ public class ExpenseAccountTransaction {
     @Column(name = "ID")
     private int id;
     @Column(name = "MONEY_IN")
-    private double moneyIn;
+    private String moneyIn;
     @Column(name = "MONEY_OUT")
-    private double moneyOut;
+    private String moneyOut;
     @Column(name = "YEAR")
     private int year;
     @Column(name = "YTD_BALANCE")
-    private double ytdBalance;
+    private String ytdBalance;
     @Column(name = "EXPENSE_ACCOUNT_ID")
     private int expenseAccountId;
     @Column(name = "CREATED_ON")
@@ -45,22 +45,6 @@ public class ExpenseAccountTransaction {
         this.id = id;
     }
 
-    public double getMoneyIn() {
-        return moneyIn;
-    }
-
-    public void setMoneyIn(double moneyIn) {
-        this.moneyIn = moneyIn;
-    }
-
-    public double getMoneyOut() {
-        return moneyOut;
-    }
-
-    public void setMoneyOut(double moneyOut) {
-        this.moneyOut = moneyOut;
-    }
-
     public int getYear() {
         return year;
     }
@@ -69,13 +53,31 @@ public class ExpenseAccountTransaction {
         this.year = year;
     }
 
-    public double getYtdBalance() {
+    public String getMoneyIn() {
+        return moneyIn;
+    }
+
+    public void setMoneyIn(String moneyIn) {
+        this.moneyIn = moneyIn;
+    }
+
+    public String getMoneyOut() {
+        return moneyOut;
+    }
+
+    public void setMoneyOut(String moneyOut) {
+        this.moneyOut = moneyOut;
+    }
+
+    public String getYtdBalance() {
         return ytdBalance;
     }
 
-    public void setYtdBalance(double ytdBalance) {
+    public void setYtdBalance(String ytdBalance) {
         this.ytdBalance = ytdBalance;
     }
+
+    
 
     
 

@@ -53,4 +53,11 @@ public class ExpenseCategoryEjb implements ExpenseCategoryEjbLocal {
         tQ.setParameter(2, year);
         return tQ.getSingleResult();
     }
+
+    @Override
+    public ExpenseCategory findById(Integer expCatId) {
+        TypedQuery<ExpenseCategory> tQ = em.createQuery("select ec from ExpenseCategory ec where ec.id=?1", ExpenseCategory.class);
+        tQ.setParameter(1, expCatId);
+        return tQ.getSingleResult();
+    }
 }

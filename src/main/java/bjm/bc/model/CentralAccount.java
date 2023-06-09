@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "CENTRAL_ACCOUNT")
+@Entity
+@Table(name = "CENTRAL_ACCOUNT")
 public class CentralAccount {
 
     @Id
@@ -22,7 +24,7 @@ public class CentralAccount {
     @Column(name = "REVENUE_ACCOUNT_HASH")
     private String revenueAccountHash;
     @Column(name = "AMOUNT")
-    private double amount;
+    private String amount;
     @Column(name = "EXPENSE_ACCOUNT_HASH")
     private String expenseAccountHash;
     @Column(name = "TRANSACTION_DATE")
@@ -53,13 +55,15 @@ public class CentralAccount {
         this.revenueAccountHash = revenueAccountHash;
     }
 
-    public double getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
+
+    
 
     public String getExpenseAccountHash() {
         return expenseAccountHash;
