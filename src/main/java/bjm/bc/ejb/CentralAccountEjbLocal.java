@@ -18,5 +18,7 @@ public interface CentralAccountEjbLocal {
     public CentralAccount createAllocation(CentralAccount centralAccount);
     public List<CentralAccount> getAllForYear(int year); 
     public CentralAccount saveAllocation(CentralAccount ca);
+
+    public void removeCentralAccount(CentralAccount ca);
     
 }

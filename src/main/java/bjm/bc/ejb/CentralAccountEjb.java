@@ -50,5 +50,13 @@ public class CentralAccountEjb implements CentralAccountEjbLocal {
         return ca;
     }
 
+    @Override
+    public void removeCentralAccount(CentralAccount ca) {
+        int caId=ca.getId();
+        em.remove(ca);
+        em.flush();
+        LOGGER.info(String.format("CentralAccount record %d removed",caId));
+    }
+
     
 }

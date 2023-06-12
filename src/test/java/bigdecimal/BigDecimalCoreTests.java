@@ -44,5 +44,6 @@ public class BigDecimalCoreTests {
     public void testCompare() {
         System.out.println(""+new BigDecimal("16000").compareTo(new BigDecimal("0")));
         System.out.println(""+new BigDecimal("0").compareTo(new BigDecimal("0")));
+        System.out.println(""+new BigDecimal("780").compareTo(new BigDecimal("1000")));
     }
 }

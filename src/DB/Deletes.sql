@@ -33,3 +33,7 @@ delete from REVENUE_PARTY where PASSWORD is NULL;
 DELETE from CENTRAL_ACCOUNT;
 
 alter table CENTRAL_ACCOUNT auto_increment = 1;
+
+DELETE from EXPENSE_ALLOCATION;
+
+alter table EXPENSE_ALLOCATION auto_increment = 1;
