@@ -53,19 +53,19 @@ public class AllocationsEjb implements AllocationsEjbLocal {
     private static final int BUDGET_FUNDS=10000000;
 
     @Override
-    public Future<String> performAllocations(String allocationJob) {
+    public Future<String> performAllocations(String allocationJob, String granularity) {
 
         int year = FinancialYear.financialYear();
-       /* List<RevenueAccount> revenueAccounts = revenueAccountEjbLocal.getAll(year);
+       List<RevenueAccount> revenueAccounts = revenueAccountEjbLocal.getAll(year);
         List<RevenueAllocation> revenueAllocations = revenueAllocationEjbLocal.getAllocationsForYear(year);
         //Map to hold number of RevenueAccount(s) by RevenueCategory
         Map<String, Integer> revAcctByCategoryMap = new HashMap<>();
         //Hold allocation for RevenueCategory
-        Map<String, BigDecimal> revCatAllocnsMap = new HashMap<>();*/
+        Map<String, BigDecimal> revCatAllocnsMap = new HashMap<>();
         //Hold allocation for RevenueCategory
         Map<String, BigDecimal> expCatAllocnsMap = new HashMap<>();
         //Store the count of each RevenueAccount category Id
-        /*for (RevenueAccount ra : revenueAccounts) {
+        for (RevenueAccount ra : revenueAccounts) {
             Integer revCatId = ra.getRevenueCategoryId();
             RevenueCategory revenueCategory = revenueCategoryEjbLocal.findById(revCatId);
             //Is there any value in the Map for this revCat
@@ -119,14 +119,14 @@ public class AllocationsEjb implements AllocationsEjbLocal {
                 CentralAccount ca = new CentralAccount();
                 ca.setYear(FinancialYear.financialYear());
                 ca.setRevenueAccountHash(ra.getRevenueAccountHash());
-                ca.setAmount("1000");
+                ca.setAmount(granularity);
                 ca.setAccountName(ra.getName() + " to ");
                 ca.setTransactionDate(LocalDateTime.now());
                 //Will set other fields such as Timestamp and Account Name (append Expense Account Name0 when we popuate the Expense records
-                ra.setYtdBalance(new BigDecimal(ra.getYtdBalance()).subtract(new BigDecimal("1000")).toString());
+                ra.setYtdBalance(new BigDecimal(ra.getYtdBalance()).subtract(new BigDecimal(granularity)).toString());
                 ca = centralAccountEjbLocal.createAllocation(ca);
             }
-        }*/
+        }
         
         
         //Dealing with the expense side now.
@@ -193,11 +193,11 @@ public class AllocationsEjb implements AllocationsEjbLocal {
         List<CentralAccount> centralAccountsToRemove = new ArrayList<>();
         //All the new Central Accounts to be posted  - effectively created from centralAccountsToRemove.
         List<CentralAccount> newCentralAccounts = new ArrayList<>();
-        //Logic to pupulate each Central Account record by 1000 
+        //Logic to pupulate each Central Account record by 10000 
         int counterForCentralAccount=0;
         CentralAccount centralAccountOnHold=null;
         outer: for (ExpenseAccount ea : expenseAccounts)  {
-            inner : while(true){
+            inner : while(true && counterForCentralAccount< centralAccounts.size()){
                 if (centralAccountOnHold!=null){//Revenue related fields already have been populated
                    centralAccountOnHold.setExpenseAccountHash(ea.getExpenseAccountHash());
                    centralAccountOnHold.setTransactionDate(LocalDateTime.now());
@@ -208,15 +208,18 @@ public class AllocationsEjb implements AllocationsEjbLocal {
                    continue inner;
                 }
                 CentralAccount ca = centralAccounts.get(counterForCentralAccount);
-                if (new BigDecimal(ea.getYtdBalance()).compareTo(new BigDecimal("1000")) == 1)//EA YTD BAL > granurarity
+                
+                if (new BigDecimal(ea.getYtdBalance()).compareTo(new BigDecimal(granularity)) == 1)//EA YTD BAL > granurarity
                 {
                     ca.setExpenseAccountHash(ea.getExpenseAccountHash());
                     ca.setTransactionDate(LocalDateTime.now());
-                    ca.setAmount("1000");
-                    ea.setYtdBalance(new BigDecimal(ea.getYtdBalance()).subtract(new BigDecimal("1000")).toString());
+                    ca.setAmount(granularity);
+                    ea.setYtdBalance(new BigDecimal(ea.getYtdBalance()).subtract(new BigDecimal(granularity)).toString());
+                    ca.setAccountName(ca.getAccountName().concat(ea.getName()));
                     asIsAccountsToKeep.add(ca);
+                    counterForCentralAccount +=1 ;
                     continue inner;
-                } else if (new BigDecimal(ea.getYtdBalance()).compareTo(new BigDecimal("1000")) == -1)//EA YTD BAL > granurarity
+                } else if (new BigDecimal(ea.getYtdBalance()).compareTo(new BigDecimal(granularity)) == -1)//EA YTD BAL > granurarity
                 {
                     //mark the original CA record for deletion
                     centralAccountsToRemove.add(ca);
@@ -234,9 +237,10 @@ public class AllocationsEjb implements AllocationsEjbLocal {
                     caNew2.setAccountName(ca.getAccountName());//Expense side of name completed in next iteration.
                     caNew2.setYear(ca.getYear());
                     caNew2.setRevenueAccountHash(ca.getRevenueAccountHash());
-                    caNew2.setAmount(new BigDecimal("1000").subtract(new BigDecimal(caNew1.getAmount())).toString());
+                    caNew2.setAmount(new BigDecimal(granularity).subtract(new BigDecimal(caNew1.getAmount())).toString());
                     //Rest of the props from the New EA such a accountName.
                     centralAccountOnHold = caNew2;
+                    counterForCentralAccount +=1 ;
                     continue outer;
                 }
                 

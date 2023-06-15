@@ -21,6 +21,6 @@ public interface AllocationsEjbLocal {
     @Asynchronous
     @Lock(LockType.READ)
     @AccessTimeout(-1)
-    public Future<String> performAllocations(String allocationJob);
+    public Future<String> performAllocations(String allocationJob, String granularity);
     
 }
